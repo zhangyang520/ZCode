@@ -5,13 +5,12 @@ import com.jianhua.zcode.assets.baselibrary.data.net.RetrofitFactory
 import com.jianhua.zcode.assets.data.api.AssetsApi
 import com.jianhua.zcode.assets.data.bean.AssetsBean
 import com.jianhua.zcode.assets.data.bean.ZCoderRecorder
-import com.jianhua.zcode.assets.data.common.AppConstants
 import com.jianhua.zcode.assets.data.request.AssetsPorjectRequest
 import com.jianhua.zcode.assets.data.request.ZCodeRecorderListRequest
 import com.jianhua.zcode.assets.data.request.ZCoderActionRequest
+import com.jianhua.zcode.assets.data.response.AssetProjectResponse
 import com.jianhua.zcode.assets.data.response.ZCodeActionResponse
-import retrofit2.http.Body
-import retrofit2.http.POST
+import com.jianhua.zcode.assets.data.response.ZCodeRecorderListResponse
 import rx.Observable
 import javax.inject.Inject
 
@@ -29,14 +28,14 @@ class AssetsRespository @Inject constructor(){
     /**
      * 获取资产 列表接口
      */
-    fun getAssetList(assetsPorjectRequest: AssetsPorjectRequest): Observable<BaseResp<ArrayList<AssetsBean>>>{
+    fun getAssetList(assetsPorjectRequest: AssetsPorjectRequest): Observable<BaseResp<AssetProjectResponse>>{
         return RetrofitFactory.instance.create(AssetsApi::class.java).getAssetList(assetsPorjectRequest)
     }
 
     /**
      * 获取扫码记录接口
      */
-    fun getZcodeRecoderList(zCodeRecorderListRequest: ZCodeRecorderListRequest): Observable<BaseResp<ArrayList<ZCoderRecorder>>>{
+    fun getZcodeRecoderList(zCodeRecorderListRequest: ZCodeRecorderListRequest): Observable<BaseResp<ZCodeRecorderListResponse>>{
         return RetrofitFactory.instance.create(AssetsApi::class.java).getZcodeRecoderList(zCodeRecorderListRequest)
     }
 

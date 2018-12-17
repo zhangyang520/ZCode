@@ -6,7 +6,9 @@ import com.jianhua.zcode.assets.data.bean.ZCoderRecorder
 import com.jianhua.zcode.assets.data.request.AssetsPorjectRequest
 import com.jianhua.zcode.assets.data.request.ZCodeRecorderListRequest
 import com.jianhua.zcode.assets.data.request.ZCoderActionRequest
+import com.jianhua.zcode.assets.data.response.AssetProjectResponse
 import com.jianhua.zcode.assets.data.response.ZCodeActionResponse
+import com.jianhua.zcode.assets.data.response.ZCodeRecorderListResponse
 import com.jianhua.zcode.assets.data.respository.AssetsRespository
 import com.jianhua.zcode.assets.data.respository.UserRespository
 import com.jianhua.zcode.assets.service.AssetService
@@ -27,11 +29,11 @@ class AssetServiceImpl @Inject constructor() : AssetService {
     @Inject
     lateinit var assetRespository: AssetsRespository
 
-    override fun getAssetList(assetsPorjectRequest: AssetsPorjectRequest): Observable<ArrayList<AssetsBean>> {
+    override fun getAssetList(assetsPorjectRequest: AssetsPorjectRequest): Observable<AssetProjectResponse> {
         return assetRespository.getAssetList(assetsPorjectRequest).convertData()
     }
 
-    override fun getZcodeRecoderList(zCodeRecorderListRequest: ZCodeRecorderListRequest): Observable<ArrayList<ZCoderRecorder>> {
+    override fun getZcodeRecoderList(zCodeRecorderListRequest: ZCodeRecorderListRequest): Observable<ZCodeRecorderListResponse> {
         return assetRespository.getZcodeRecoderList(zCodeRecorderListRequest).convertData()
     }
 

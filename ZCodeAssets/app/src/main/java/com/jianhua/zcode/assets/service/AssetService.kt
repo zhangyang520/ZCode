@@ -7,7 +7,9 @@ import com.jianhua.zcode.assets.data.common.AppConstants
 import com.jianhua.zcode.assets.data.request.AssetsPorjectRequest
 import com.jianhua.zcode.assets.data.request.ZCodeRecorderListRequest
 import com.jianhua.zcode.assets.data.request.ZCoderActionRequest
+import com.jianhua.zcode.assets.data.response.AssetProjectResponse
 import com.jianhua.zcode.assets.data.response.ZCodeActionResponse
+import com.jianhua.zcode.assets.data.response.ZCodeRecorderListResponse
 import retrofit2.http.Body
 import retrofit2.http.POST
 import rx.Observable
@@ -24,12 +26,12 @@ interface AssetService {
     /**
      * 获取资产 列表接口
      */
-    fun getAssetList( assetsPorjectRequest: AssetsPorjectRequest): Observable<ArrayList<AssetsBean>>
+    fun getAssetList( assetsPorjectRequest: AssetsPorjectRequest): Observable<AssetProjectResponse>
 
     /**
      * 获取扫码记录接口
      */
-    fun getZcodeRecoderList(zCodeRecorderListRequest: ZCodeRecorderListRequest): Observable<ArrayList<ZCoderRecorder>>
+    fun getZcodeRecoderList(zCodeRecorderListRequest: ZCodeRecorderListRequest): Observable<ZCodeRecorderListResponse>
 
 
     /**

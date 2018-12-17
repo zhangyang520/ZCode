@@ -12,5 +12,5 @@ import com.jianhua.zcode.assets.data.bean.ZCoderRecorder
  *
  */
 class ZCodeRecorderListResponse {
-    var zCodeList:ArrayList<ZCoderRecorder>?=null
+    var list:ArrayList<ZCoderRecorder>?=null
 }

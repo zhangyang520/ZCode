@@ -8,4 +8,4 @@ package com.jianhua.zcode.assets.baselibrary.data.bean
  *  message 消息内容
  *  data  响应的数据
  */
-data class BaseResp<out T>(val messageCode:String,val message:String,val data:T)
+data class BaseResp<out T>(val status:String,val message:String,val data:T)

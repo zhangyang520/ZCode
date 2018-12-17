@@ -19,7 +19,15 @@ class AssetsBean:Serializable, CursorModel {
     var assetsModeNumber=""//资产型号
     var checkDate="" //盘点时间
 
-
+    var title="" //物品名称
+    var num="" //物品编号
+    var model="" //物品型号
+    var projectgroup=""//项目组
+    var useName="" //使用人
+    var pantime="" //盘点时间
+    var panname="" //盘点人
+    var shuname="" //所属部门
+    var ispandian="" //是否 盘点
     
     constructor()
     constructor(assetsName: String, assetsNumber: Int, assetsByDepartmentName: String, assetsByUserName: String, assetsModeNumber: String, checkDate: String) {
@@ -30,6 +38,20 @@ class AssetsBean:Serializable, CursorModel {
         this.assetsModeNumber = assetsModeNumber
         this.checkDate = checkDate
     }
+
+
+    constructor(title: String, num: String, model: String, projectgroup: String, useName: String, pantime: String, panname: String, shuname: String, ispandian: String) {
+        this.title = title
+        this.num = num
+        this.model = model
+        this.projectgroup = projectgroup
+        this.useName = useName
+        this.pantime = pantime
+        this.panname = panname
+        this.shuname = shuname
+        this.ispandian = ispandian
+    }
+
 
     /**
      * 是否有更多

@@ -11,7 +11,7 @@ object BaseConstants {
          * 请求失败展示信息
          */
         val ERROR_MESSAGE = "请求失败，请稍后再试"
-        var SUCCESS = "0";//成功的状态
+        var SUCCESS = "200";//成功的状态
 
         //http://localhost:8080/admin/mobile/   http://localhost:8090/
         var BASE_URL = "http://47.94.207.62:19999/admin/mobile/"//生产环境1010

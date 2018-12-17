@@ -1,6 +1,7 @@
 package com.jianhua.zcode.assets.presenter.view
 
 import com.jianhua.zcode.assets.baselibrary.presenter.view.BaseView
+import com.jianhua.zcode.assets.data.bean.AssetUser
 import com.jianhua.zcode.assets.data.response.UserLoginResponse
 
 /**
@@ -18,7 +19,7 @@ interface UserView:BaseView{
     /**
      * 用户登录的相关的response
      */
-    fun onLoginResponse(loginResponse: UserLoginResponse){
+    fun onLoginResponse(loginResponse: AssetUser){
 
     }
 }

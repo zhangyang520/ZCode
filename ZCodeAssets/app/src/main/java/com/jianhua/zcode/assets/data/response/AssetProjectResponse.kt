@@ -11,5 +11,5 @@ import com.jianhua.zcode.assets.data.bean.AssetsBean
  */
 class AssetProjectResponse {
     //项目资产列表 属性
-    var assetsProjects:ArrayList<AssetsBean>?=null
+    var list:ArrayList<AssetsBean>?=null
 }

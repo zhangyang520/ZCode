@@ -1,5 +1,6 @@
 package com.jianhua.zcode.assets.service
 
+import com.jianhua.zcode.assets.data.bean.AssetUser
 import com.jianhua.zcode.assets.data.request.UserLoginRequest
 import com.jianhua.zcode.assets.data.response.UserLoginResponse
 import rx.Observable
@@ -18,5 +19,5 @@ interface UserService {
     /**
      * 用户登录
      */
-    fun userLogin(userLoginRequest: UserLoginRequest):Observable<UserLoginResponse>
+    fun userLogin(userLoginRequest: UserLoginRequest):Observable<AssetUser>
 }

@@ -10,4 +10,5 @@ package com.jianhua.zcode.assets.data.response
  *
  */
 class UserLoginResponse {
+
 }

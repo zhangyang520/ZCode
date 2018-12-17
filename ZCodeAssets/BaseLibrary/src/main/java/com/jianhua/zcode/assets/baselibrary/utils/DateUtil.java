@@ -36,7 +36,7 @@ public class DateUtil {
 
 
 	public static String dateFormatMonth(Date date){
-		return new SimpleDateFormat("yyyy/MM",Locale.getDefault()).format(date);
+		return new SimpleDateFormat("yyyy-MM",Locale.getDefault()).format(date);
 	}
 
 	public static String dateFormat(Date date){

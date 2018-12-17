@@ -48,7 +48,7 @@
                 android:value="${CONSTANT_URL_VALUE}" />
 
         <activity
-                android:name="com.jianhua.zcode.assets.ui.activity.MainActivity"
+                android:name="com.jianhua.zcode.assets.ui.activity.LoginActivity"
                 android:windowSoftInputMode="stateAlwaysHidden"
         >
             <intent-filter>
@@ -56,6 +56,13 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <!-- 登录界面-->
+        <activity
+                android:name=".ui.activity.MainActivity"
+                android:launchMode="singleTop"
+                android:screenOrientation="portrait"
+        ></activity>
     </application>
 
 </manifest>

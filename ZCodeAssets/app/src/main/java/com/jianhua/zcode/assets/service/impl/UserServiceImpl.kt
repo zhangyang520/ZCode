@@ -1,6 +1,7 @@
 package com.jianhua.zcode.assets.service.impl
 
 import com.jianhua.zcode.assets.baselibrary.Rx.convertData
+import com.jianhua.zcode.assets.data.bean.AssetUser
 import com.jianhua.zcode.assets.data.request.UserLoginRequest
 import com.jianhua.zcode.assets.data.response.UserLoginResponse
 import com.jianhua.zcode.assets.data.respository.UserRespository
@@ -21,7 +22,7 @@ class UserServiceImpl @Inject constructor():UserService {
     @Inject
     lateinit var userRespository: UserRespository
 
-    override fun userLogin(userLoginRequest: UserLoginRequest): Observable<UserLoginResponse> {
+    override fun userLogin(userLoginRequest: UserLoginRequest): Observable<AssetUser> {
         return userRespository.userLogin(userLoginRequest).convertData()
     }
 }

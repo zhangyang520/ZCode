@@ -39,7 +39,7 @@ fun <T>Observable<BaseResp<T>>.convertData():Observable<T>{
     return this.flatMap(object :Func1<BaseResp<T>,Observable<T>>{
         override fun call(t: BaseResp<T>?): Observable<T> {
             SystemUtil.printlnStr("BaseSucriber call....:"+t.toString())
-            if(!t!!.messageCode.equals(BaseConstants.SUCCESS)){
+            if(!t!!.status.equals(BaseConstants.SUCCESS)){
                 SystemUtil.printlnStr("BaseSucriber call failure")
                 return rx.Observable.error(ContentException(t.message))
             }
@@ -74,7 +74,7 @@ fun  EditText.getTxt():String{
 fun <T>Observable<BaseResp<T>>.convertBoolean():Observable<Boolean>{
     return this.flatMap(object:Func1<BaseResp<T>,Observable<Boolean>>{
         override fun call(t: BaseResp<T>?): Observable<Boolean> {
-            if(t!!.messageCode.equals(BaseConstants.SUCCESS)){
+            if(t!!.status.equals(BaseConstants.SUCCESS)){
                 return rx.Observable.error(ContentException(t.message))
             }
             return rx.Observable.just(true);

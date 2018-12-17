@@ -1,6 +1,7 @@
 package com.jianhua.zcode.assets.data.api
 
 import com.jianhua.zcode.assets.baselibrary.data.bean.BaseResp
+import com.jianhua.zcode.assets.data.bean.AssetUser
 import com.jianhua.zcode.assets.data.common.AppConstants
 import com.jianhua.zcode.assets.data.request.UserLoginRequest
 import com.jianhua.zcode.assets.data.response.UserLoginResponse
@@ -23,5 +24,5 @@ interface UserApi {
      * 用户登录
      */
     @POST(value = AppConstants.loginDo)
-    fun userLogin(@Body userLoginRequest: UserLoginRequest):Observable<BaseResp<UserLoginResponse>>
+    fun userLogin(@Body userLoginRequest: UserLoginRequest):Observable<BaseResp<AssetUser>>
 }

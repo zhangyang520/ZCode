@@ -2,6 +2,13 @@ package com.jianhua.zcode.assets.data.request
 
 /**
  *  扫码记录的接口 的请求体
+ *
+ *          panstatus:盘点状态
+ *          pandate: 盘点日期
+ *          startTime：开始时期
+ *          endTime：结束日期
+ *          shuname：部门
+ *          keyword：关键字搜索
  *  @Title ${name}
  *  @ProjectName ZCodeAssets
  *  @Description: TODO
@@ -9,4 +16,7 @@ package com.jianhua.zcode.assets.data.request
  *  @date 2018/12/1519:37
  *
  */
-data class ZCodeRecorderListRequest(var id:Int=0,var page:Int,var rows:Int)
+data class ZCodeRecorderListRequest(var id:Int=0,var pageNum:Int,var pageSize:Int,
+                                    var panstatus:String="1",var pandate:String="",
+                                    var startTime:String="",var endTime:String="",
+                                    var shuname:String="",var keyword:String="")

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <!--面具的颜色-->
+    <color name="mask_color">#bdbdbd</color>
+    <color name="condition_popup_backcolor">#ffffff</color>
+
+    <!--主体的颜色-->
+    <color name="back_main_color">#d4237a</color>
+    <color name="back_main_gray_color">#F6F6F6</color>
+
+    <color name="deep_gray">#929292</color>
+</resources>

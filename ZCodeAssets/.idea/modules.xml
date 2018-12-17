@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/BaseLibrary/BaseLibrary.iml" filepath="$PROJECT_DIR$/BaseLibrary/BaseLibrary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ZCodeAssets.iml" filepath="$PROJECT_DIR$/ZCodeAssets.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dashtablayout/dashtablayout.iml" filepath="$PROJECT_DIR$/dashtablayout/dashtablayout.iml" />
+      <module fileurl="file://$PROJECT_DIR$/recylerviewrefreshlayout/recylerviewrefreshlayout.iml" filepath="$PROJECT_DIR$/recylerviewrefreshlayout/recylerviewrefreshlayout.iml" />
+    </modules>
+  </component>
+</project>

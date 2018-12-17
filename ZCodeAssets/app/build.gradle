@@ -1,0 +1,82 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+kapt {
+    arguments {
+        arg("moduleName", project.getName())
+    }
+}
+android {
+    compileSdkVersion compile_SdkVersion
+    buildToolsVersion build_ToolsVersion
+    defaultConfig {
+        applicationId application_id
+        minSdkVersion minSdk_Version
+        targetSdkVersion target_SdkVersion
+
+        versionCode app_versionCode
+        versionName app_versionName
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
+
+    signingConfigs {
+        /**
+         * 设置你的keystore相关
+         * demo中只是一个示例，使用时请根据实际情况进行配置
+         */
+        debug {
+            storeFile file("zcodeDev.jks")
+            storePassword "zcode123"
+            keyAlias "zcode"
+            keyPassword "zcode123"
+        }
+
+        release{
+            storeFile file("zcodeDev.jks")
+            storePassword "zcode123"
+            keyAlias "zcode"
+            keyPassword "zcode123"
+        }
+    }
+
+    buildTypes {
+            debug {
+                applicationIdSuffix ".dev"
+                manifestPlaceholders=[CONSTANT_URL_VALUE:"${project.CONSTANT_URL_DEBUG}",
+                                      CURRENT_PRINT_VALUE:"${project.CURRENT_PRINT_VALUE_DEBUG}",
+                                      JPUSH_PKGNAME:"${application_id}"+applicationIdSuffix,
+                                      CONSTANT_UPLOAD_URL_VALUE:"${project.CONSTANT_URL_UPLOAD_DEBUG}",
+                                      CONSTANT_URL_DOWNLOAD_VALUE:"${project.CONSTANT_URL_DOWNLOAD_DEBUG}"]
+
+                minifyEnabled false
+                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+                signingConfig signingConfigs.debug
+            }
+
+            release {
+                manifestPlaceholders=[CONSTANT_URL_VALUE:"${project.CONSTANT_URL_PRODUCT}",
+                                      CURRENT_PRINT_VALUE:"${project.CURRENT_PRINT_VALUE_PRODUCT}",
+                                      JPUSH_PKGNAME:"${application_id}",
+                                      CONSTANT_UPLOAD_URL_VALUE:"${project.CONSTANT_URL_UPLOAD_PRODUCT}",
+                                      CONSTANT_URL_DOWNLOAD_VALUE:"${project.CONSTANT_URL_DOWNLOAD_PRODUCT}"]
+
+                minifyEnabled false
+                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+                signingConfig signingConfigs.release
+            }
+        }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile project(':BaseLibrary')
+    compile project(':dashtablayout')
+    kapt "com.google.dagger:dagger-compiler:$dagger_version"
+    kapt "com.alibaba:arouter-compiler:$arouter_compiler_version"
+}

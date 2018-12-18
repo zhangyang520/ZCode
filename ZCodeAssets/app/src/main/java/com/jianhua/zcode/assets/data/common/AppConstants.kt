@@ -20,7 +20,12 @@ object AppConstants {
     const  val zcodeAction="api/goods/updatePandianStatus"
 
     //所有部门接口
-    const  val departmentList="api/goods/allDept"
+    const val departmentList = "api/goods/allDept"
+
+    //获取统计信息 do
+    const val totalInfo="api/goods/getTotalNum"
+
+
     // 盘点日期的键
     const val Inventory_Date_Name="Inventory_Date"
 

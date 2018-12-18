@@ -2,12 +2,12 @@ package com.jianhua.zcode.assets.service
 
 import com.jianhua.zcode.assets.baselibrary.data.bean.BaseResp
 import com.jianhua.zcode.assets.data.bean.AssetsBean
+import com.jianhua.zcode.assets.data.bean.DepartmentBean
 import com.jianhua.zcode.assets.data.bean.ZCoderRecorder
 import com.jianhua.zcode.assets.data.common.AppConstants
-import com.jianhua.zcode.assets.data.request.AssetsPorjectRequest
-import com.jianhua.zcode.assets.data.request.ZCodeRecorderListRequest
-import com.jianhua.zcode.assets.data.request.ZCoderActionRequest
+import com.jianhua.zcode.assets.data.request.*
 import com.jianhua.zcode.assets.data.response.AssetProjectResponse
+import com.jianhua.zcode.assets.data.response.PanTotalResponse
 import com.jianhua.zcode.assets.data.response.ZCodeActionResponse
 import com.jianhua.zcode.assets.data.response.ZCodeRecorderListResponse
 import retrofit2.http.Body
@@ -38,4 +38,15 @@ interface AssetService {
      * 扫码操作的接口
      */
     fun zcodeAction(zCoderActionRequest: ZCoderActionRequest): Observable<ZCodeActionResponse>
+
+
+    /**
+     * 获取所有的部门信息
+     */
+    fun getDepartmentList(allDepartmentRequest: AllDepartmentRequest):Observable<ArrayList<DepartmentBean>>
+
+    /**
+     * 获取盘点的统计信息
+     */
+    fun getPanTongji( totalRequest: PanTotalRequest):Observable<PanTotalResponse>
 }

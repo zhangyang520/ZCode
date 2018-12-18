@@ -14,6 +14,6 @@ package com.jianhua.zcode.assets.data.request
      * @date
      */
 data class AssetsPorjectRequest(var id:Int=0,var pageNum:Int,var pageSize:Int,
-                                  var panstatus:String="1",var pandate:String="",
+                                  var panstatus:Int=0,var pandate:String="",
                                   var startTime:String="",var endTime:String="",
                                   var shuname:String="",var keyword:String="")

@@ -79,4 +79,8 @@ dependencies {
     compile project(':dashtablayout')
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
     kapt "com.alibaba:arouter-compiler:$arouter_compiler_version"
+
+    implementation 'com.google.zxing:core:3.2.1'
+    implementation 'cn.bingoogolapple:bga-qrcodecore:1.1.7@aar'
+    implementation 'cn.bingoogolapple:bga-zxing:1.1.7@aar'
 }

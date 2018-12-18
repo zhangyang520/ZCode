@@ -62,8 +62,12 @@
              <android.support.v4.view.ViewPager
                      android:id="@+id/container"
                      android:layout_width="match_parent"
-                     android:layout_height="match_parent">
+                     android:layout_height="match_parent"
+                     android:layout_alignParentBottom="true"
+                     android:layout_alignParentLeft="true"
+                     android:layout_alignParentStart="true">
              </android.support.v4.view.ViewPager>
+
 
              <View
                      android:id="@+id/maskView"
@@ -85,14 +89,74 @@
 
        </com.zhy.autolayout.AutoLinearLayout>
 
-       <!-- 图片的imageButton -->
-       <android.support.v7.widget.AppCompatImageView
-            android:id="@+id/iv_saomiao"
-            android:src="@mipmap/iv_sao"
-            android:scaleType="fitCenter"
-            android:layout_width="190px"
-            android:layout_height="190px"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"/>
+
+    <!-- 底部的信息 -->
+       <com.zhy.autolayout.AutoRelativeLayout
+               android:id="@+id/rl_bottom"
+               android:layout_alignParentBottom="true"
+               android:layout_centerHorizontal="true"
+               android:background="@color/transparent"
+               android:layout_width="match_parent"
+               android:layout_height="190px">
+
+
+           <!--已盘点 数量-->
+           <TextView
+                   android:id="@+id/tv_total_num"
+                   android:layout_width="wrap_content"
+                   android:layout_marginTop="95px"
+                   android:text="总数:"
+                   android:layout_marginLeft="20px"
+                   android:textSize="30px"
+                   android:textColor="@color/gray"
+                   android:layout_height="wrap_content"/>
+
+           <TextView
+                   android:layout_toRightOf="@+id/tv_total_num"
+                   android:id="@+id/tv_total_num_value"
+                   android:textSize="30px"
+                   android:layout_centerVertical="true"
+                   android:text="30"
+                   android:layout_marginLeft="10px"
+                   android:layout_alignTop="@+id/tv_total_num"
+                   android:textColor="@color/blue"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"/>
+
+           <!-- 图片的imageButton -->
+           <android.support.v7.widget.AppCompatImageView
+                   android:id="@+id/iv_saomiao"
+                   android:src="@mipmap/iv_sao"
+                   android:scaleType="fitCenter"
+                   android:layout_centerHorizontal="true"
+                   android:layout_width="190px"
+                   android:layout_height="190px"
+                  />
+
+           <!--已盘点 数量-->
+           <TextView
+                   android:id="@+id/tv_yipandian_num"
+                   android:layout_width="wrap_content"
+                   android:layout_marginTop="95px"
+                   android:text="已盘点数量:"
+                   android:textSize="30px"
+                   android:textColor="@color/gray"
+                   android:layout_marginRight="10px"
+                   android:layout_toLeftOf="@+id/tv_yipandian_num_value"
+                   android:layout_height="wrap_content"/>
+
+           <TextView
+                   android:id="@+id/tv_yipandian_num_value"
+                   android:textSize="30px"
+                   android:layout_centerVertical="true"
+                   android:layout_alignParentRight="true"
+                   android:text="30"
+                   android:layout_marginRight="20px"
+                   android:layout_alignTop="@+id/tv_yipandian_num"
+                   android:textColor="@color/red"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"/>
+       </com.zhy.autolayout.AutoRelativeLayout>
+
 
 </com.zhy.autolayout.AutoRelativeLayout>

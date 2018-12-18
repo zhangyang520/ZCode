@@ -19,23 +19,27 @@
 
     <!-- 盘点月份的处理 -->
     <com.zhy.autolayout.AutoRelativeLayout
+            android:id="@+id/ll_date"
             android:layout_below="@+id/tv_title"
             android:layout_width="match_parent"
             android:layout_marginLeft="40px"
             android:layout_marginTop="50px"
             android:layout_height="60px">
 
-        <ImageView
-                android:src="@drawable/iv_daily"
-                android:id="@+id/iv_daily"
-                android:layout_width="70px"
-                android:layout_height="70px"
-                android:scaleType="fitCenter"
-        />
+        <!-- 标题的设置 -->
+        <TextView
+                android:id="@+id/tv_daily"
+                android:textColor="@color/black"
+                android:text="盘点日期："
+                android:gravity="center"
+                android:textSize="30px"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
         <EditText
-                android:layout_marginLeft="30px"
-                android:layout_toRightOf="@+id/iv_daily"
+                android:layout_marginLeft="15px"
+                android:layout_toRightOf="@+id/tv_daily"
                 android:editable="false"
                 android:focusable="false"
                 android:id="@+id/ed_daily"
@@ -44,19 +48,36 @@
                 android:textSize="27px"
                 android:paddingLeft="40px"
                 android:textColor="@color/black"
-                android:layout_width="360px"
+                android:layout_width="290px"
                 android:layout_height="match_parent"/>
 
         <ImageView
                 android:src="@drawable/iv_last_month"
                 android:id="@+id/iv_last_month"
                 android:layout_toRightOf="@+id/ed_daily"
-                android:layout_marginLeft="30px"
+                android:layout_marginLeft="15px"
                 android:layout_width="65px"
                 android:layout_height="65px"
                 android:scaleType="fitCenter"
         />
     </com.zhy.autolayout.AutoRelativeLayout>
+
+
+    <Button
+            android:id="@+id/btn_exit"
+            android:layout_width="match_parent"
+            android:layout_below="@+id/ll_date"
+            android:layout_marginTop="200px"
+            android:layout_height="100px"
+            android:text="退出登录"
+            android:textColor="@color/white"
+            android:layout_marginLeft="40px"
+            android:layout_marginRight="40px"
+            android:textSize="30px"
+            android:background="@drawable/shape_rectage_fense"
+            android:gravity="center"
+    />
+
     <!-- 内容的确定 -->
     <com.zhy.autolayout.AutoLinearLayout
             android:layout_alignParentBottom="true"

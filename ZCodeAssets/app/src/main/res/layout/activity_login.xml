@@ -4,7 +4,17 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent">
 
+    <ImageView
+             android:id="@+id/iv_logo"
+             android:layout_width="300px"
+             android:layout_marginTop="30px"
+             android:layout_centerHorizontal="true"
+             android:layout_height="300px"
+             android:scaleType="fitCenter"
+             android:src="@drawable/iv_logo"
+    />
     <com.zhy.autolayout.AutoRelativeLayout
+            android:layout_below="@+id/iv_logo"
             android:id="@+id/rl_name"
             android:layout_marginLeft="20px"
             android:layout_marginRight="20px"

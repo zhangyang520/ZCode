@@ -3,7 +3,9 @@ package com.jianhua.zcode.assets.presenter.view
 import com.jianhua.zcode.assets.baselibrary.data.bean.RefreshAction
 import com.jianhua.zcode.assets.baselibrary.presenter.view.BaseView
 import com.jianhua.zcode.assets.data.bean.AssetsBean
+import com.jianhua.zcode.assets.data.bean.DepartmentBean
 import com.jianhua.zcode.assets.data.bean.ZCoderRecorder
+import com.jianhua.zcode.assets.data.response.PanTotalResponse
 import com.jianhua.zcode.assets.data.response.ZCodeActionResponse
 import com.jianhua.zcode.assets.ui.fragment.ProjectAssetsFragment
 import com.jianhua.zcode.assets.ui.fragment.ZCodeRecordListFragment
@@ -51,6 +53,20 @@ interface AssetView:BaseView{
      * 刷新相关 失败的请求
      */
     fun onErrorAction(action: RefreshAction, errorContent: String, listener: ZCodeRecordListFragment.RequestListener){
+
+    }
+
+    /**
+     * 回馈 部门的列表的数据
+     */
+    fun onGetDepartmentList(departmentList: ArrayList<DepartmentBean>){
+
+    }
+
+    /**
+     * 获取统计信息的回调
+     */
+    fun onGetPanTongji(panTotalResponse: PanTotalResponse){
 
     }
 }

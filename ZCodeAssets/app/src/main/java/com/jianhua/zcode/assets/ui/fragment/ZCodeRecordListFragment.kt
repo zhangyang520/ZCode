@@ -1,21 +1,29 @@
 package com.jianhua.zcode.assets.ui.fragment
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.jianhua.zcode.assets.R
 import com.jianhua.zcode.assets.baselibrary.data.bean.RefreshAction
+import com.jianhua.zcode.assets.baselibrary.exception.ContentException
 import com.jianhua.zcode.assets.baselibrary.ui.fragment.BaseMvpFragment
 import com.jianhua.zcode.assets.baselibrary.ui.fragment.BaseMvpRecylerviewFragment
 import com.jianhua.zcode.assets.baselibrary.ui.recylerviewRefrsehLayout.adapter.RecyclerListAdapter
+import com.jianhua.zcode.assets.baselibrary.utils.DateUtil
+import com.jianhua.zcode.assets.data.bean.AssetListType
 import com.jianhua.zcode.assets.data.bean.AssetsBean
 import com.jianhua.zcode.assets.data.bean.ZCoderRecorder
+import com.jianhua.zcode.assets.data.common.AppConstants
+import com.jianhua.zcode.assets.data.dao.AssetSearchConditionDao
 import com.jianhua.zcode.assets.data.request.AssetsPorjectRequest
 import com.jianhua.zcode.assets.data.request.ZCodeRecorderListRequest
 import com.jianhua.zcode.assets.injection.component.DaggerAssetComponent
 import com.jianhua.zcode.assets.presenter.AssetPresenter
 import com.jianhua.zcode.assets.presenter.view.AssetView
+import com.suntray.chinapost.baselibrary.ut.base.utils.AppPrefsUtils
+import java.util.*
 
 /**
  *  扫码记录的fragment
@@ -40,8 +48,8 @@ class ZCodeRecordListFragment : BaseMvpRecylerviewFragment<AssetPresenter,ZCoder
      */
     override fun initView() {
         //展示数据
-        getOriginAdapter().setItemList(getDatas())
-        getOriginAdapter().notifyDataSetChanged()
+//        getOriginAdapter().setItemList(getDatas())
+//        getOriginAdapter().notifyDataSetChanged()
     }
 
     /**
@@ -53,23 +61,6 @@ class ZCodeRecordListFragment : BaseMvpRecylerviewFragment<AssetPresenter,ZCoder
        mInteractionListener!!.requestNormal()
     }
 
-    /**
-     * 模拟的数据
-     */
-    private fun getDatas(): ArrayList<ZCoderRecorder> {
-        var i = 0
-        var assetList=ArrayList<ZCoderRecorder>()
-        while (i < 20) {
-            var assetsBean= ZCoderRecorder()
-            assetsBean.assetsName="设备1"
-            assetsBean.assetsNumber=i
-            assetsBean.assetsByDepartmentName="技术部"
-            assetsBean.assetsModeNumber=i.toString()
-            assetList.add(assetsBean)
-            i++
-        }
-        return assetList
-    }
 
     /**
      * 创建适配器
@@ -91,24 +82,53 @@ class ZCodeRecordListFragment : BaseMvpRecylerviewFragment<AssetPresenter,ZCoder
      * itemHolder 每个条目的封装
      */
     private inner class ItemViewHolder(parent: ViewGroup) : RecyclerListAdapter.ViewHolder<ZCoderRecorder>
-    (LayoutInflater.from(activity).inflate(R.layout.item_project_assets, parent, false)) {
-        var btn_xuhao: TextView?=null
-        var tv_name: TextView?=null
-        var tv_id_value: TextView?=null
-        var tv_position: TextView?=null
+    (LayoutInflater.from(activity).inflate(R.layout.item_fragment_project_assets, parent, false)) {
+        var btn_xuhao:TextView?=null
+        var tv_name:TextView?=null
+        var tv_pan_date_value:TextView?=null
+        var tv_pan_state:TextView?=null
+        var tv_num:TextView?=null
+        var tv_xinghao:TextView?=null
+        var  tv_belong_project:TextView?=null
+        var tv_by_people:TextView?=null
+        var tv_department:TextView?=null
+        var tv_project_num:TextView?=null
 
         init {
             btn_xuhao=itemView!!.findViewById(R.id.btn_xuhao)
             tv_name=itemView!!.findViewById(R.id.tv_name)
-            tv_id_value=itemView!!.findViewById(R.id.tv_id_value)
-            tv_position=itemView!!.findViewById(R.id.tv_position)
+            tv_pan_date_value=itemView!!.findViewById(R.id.tv_pan_date_value)
+            tv_pan_state=itemView!!.findViewById(R.id.tv_pan_state_value)
+
+            tv_num=itemView!!.findViewById(R.id.tv_num)
+            tv_xinghao=itemView!!.findViewById(R.id.tv_xinghao)
+            tv_belong_project=itemView!!.findViewById(R.id.tv_belong_project)
+            tv_by_people=itemView!!.findViewById(R.id.tv_by_people)
+
+            tv_department=itemView!!.findViewById(R.id.tv_department)
+            tv_project_num=itemView!!.findViewById(R.id.tv_project_num)
         }
 
         override fun bind(item: ZCoderRecorder, position: Int) {
-            btn_xuhao!!.setText(position.toString())
-            tv_id_value!!.setText(item.assetsNumber.toString())
-            tv_name!!.setText(item.assetsName)
-            tv_position!!.setText(item.assetsByDepartmentName)
+            btn_xuhao!!.setText((position+1).toString())
+            tv_pan_date_value!!.setText(item.pantime)
+            tv_name!!.setText(item.title)
+
+            if(item.ispandian.equals("物品已盘点")){
+                tv_pan_state!!.setText(item.ispandian)
+                tv_pan_state!!.setTextColor(Color.BLUE)
+            }else{
+                tv_pan_state!!.setText(item.ispandian)
+                tv_pan_state!!.setTextColor(Color.RED)
+            }
+
+            tv_num!!.setText(item.num)
+            tv_xinghao!!.setText(item.model)
+            tv_belong_project!!.setText(item.projectgroup)
+            tv_by_people!!.setText(item.useName)
+
+            tv_department!!.setText(item.shuname)
+            tv_project_num!!.setText(item.projectnum)
         }
     }
 
@@ -183,6 +203,7 @@ class ZCodeRecordListFragment : BaseMvpRecylerviewFragment<AssetPresenter,ZCoder
             pageNumber=1
             simulateNetworkRequest(object : RequestListener {
                 override fun onSuccess(openProjectModels: List<ZCoderRecorder>, refreshAction: RefreshAction) {
+                    getOriginAdapter().getItemList().clear()
                     getOriginAdapter().getItemList().addAll(openProjectModels)
                     getHeaderAdapter().notifyDataSetChanged()
                     super@ItemInteractionListener.requestNormal()
@@ -199,6 +220,7 @@ class ZCodeRecordListFragment : BaseMvpRecylerviewFragment<AssetPresenter,ZCoder
             pageNumber=1
             simulateNetworkRequest(object : RequestListener {
                 override fun onSuccess(openProjectModels: List<ZCoderRecorder>, refreshAction: RefreshAction) {
+                    getOriginAdapter().getItemList().clear()
                     getOriginAdapter().getItemList().addAll(openProjectModels)
                     getHeaderAdapter().notifyDataSetChanged()
                     super@ItemInteractionListener.requestSearch()
@@ -220,7 +242,21 @@ class ZCodeRecordListFragment : BaseMvpRecylerviewFragment<AssetPresenter,ZCoder
         /**
          * todo 相关的请求参数 需要完善
          */
-        basePresenter.getZcodeRecoderList(ZCodeRecorderListRequest(-1,pageNumber,pageCount),refreshAction,listener)
+
+        try {
+            var assetSearchCondition=
+                    AssetSearchConditionDao.getByType(AssetListType.ZCodeRecoderList.listType.toInt())
+            //有对应的条件
+            basePresenter.getZcodeRecoderList(ZCodeRecorderListRequest(-1,pageNumber,pageCount,
+                    AssetListType.AssetListAll.listType.toInt(),assetSearchCondition.pandate,
+                    assetSearchCondition.startTime,assetSearchCondition.endTime,
+                    assetSearchCondition.shunname,assetSearchCondition.keyword),refreshAction,listener)
+        } catch (e: ContentException) {
+            //没有对应的搜索条件
+            var panDate= AppPrefsUtils.getString(AppConstants.Inventory_Date_Name, DateUtil.dateFormatMonth(Calendar.getInstance().time))
+            basePresenter.getZcodeRecoderList(ZCodeRecorderListRequest(-1,pageNumber,pageCount,
+                    AssetListType.AssetListAll.listType.toInt(),panDate,"","","",""),refreshAction,listener)
+        }
     }
 
 

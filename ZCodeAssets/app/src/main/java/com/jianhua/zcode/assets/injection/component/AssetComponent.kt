@@ -3,6 +3,8 @@ package com.jianhua.zcode.assets.injection.component
 import com.jianhua.zcode.assets.baselibrary.injection.component.ActivityComponent
 import com.jianhua.zcode.assets.baselibrary.injection.module.PerComponentScope
 import com.jianhua.zcode.assets.injection.module.AssetModule
+import com.jianhua.zcode.assets.ui.activity.MainActivity
+import com.jianhua.zcode.assets.ui.activity.ZCodeScanActivity
 import com.jianhua.zcode.assets.ui.fragment.ProjectAssetsFragment
 import com.jianhua.zcode.assets.ui.fragment.ZCodeRecordListFragment
 import dagger.Component
@@ -28,4 +30,15 @@ interface AssetComponent {
      * 绑定 扫码记录的fragment
      */
     fun bind(zCodeRecordListFragment: ZCodeRecordListFragment)
+
+
+    /**
+     * 绑定 mainActivity 界面
+     */
+    fun bind(mainActivity: MainActivity)
+
+    /**
+     * 绑定 zcode扫描 二维码的界面
+     */
+    fun bind(zCodeScanActivity: ZCodeScanActivity)
 }

@@ -7,17 +7,18 @@ import com.jianhua.zcode.assets.baselibrary.data.bean.RefreshAction
 import com.jianhua.zcode.assets.baselibrary.exception.ContentException
 import com.jianhua.zcode.assets.baselibrary.presenter.BasePresenter
 import com.jianhua.zcode.assets.data.bean.AssetsBean
+import com.jianhua.zcode.assets.data.bean.DepartmentBean
 import com.jianhua.zcode.assets.data.bean.ZCoderRecorder
-import com.jianhua.zcode.assets.data.request.AssetsPorjectRequest
-import com.jianhua.zcode.assets.data.request.ZCodeRecorderListRequest
-import com.jianhua.zcode.assets.data.request.ZCoderActionRequest
+import com.jianhua.zcode.assets.data.request.*
 import com.jianhua.zcode.assets.data.response.AssetProjectResponse
+import com.jianhua.zcode.assets.data.response.PanTotalResponse
 import com.jianhua.zcode.assets.data.response.ZCodeActionResponse
 import com.jianhua.zcode.assets.data.response.ZCodeRecorderListResponse
 import com.jianhua.zcode.assets.presenter.view.AssetView
 import com.jianhua.zcode.assets.service.impl.AssetServiceImpl
 import com.jianhua.zcode.assets.ui.fragment.ProjectAssetsFragment
 import com.jianhua.zcode.assets.ui.fragment.ZCodeRecordListFragment
+import rx.Observable
 import javax.inject.Inject
 
 /**
@@ -32,6 +33,96 @@ class AssetPresenter @Inject constructor():BasePresenter<AssetView>(){
 
     @Inject
     lateinit var assetServiceImpl: AssetServiceImpl
+
+
+    /**
+     * 获取 盘点 的统计信息
+     */
+    fun getPanTongji(totalRequest: PanTotalRequest){
+        assetServiceImpl.getPanTongji(totalRequest)
+                .execute(object:BaseSucriber<PanTotalResponse>(baseView,AssetPresenter::class.java.simpleName){
+
+                    /**
+                     * 开始
+                     */
+                    override fun onStart() {
+
+                    }
+
+                    /**
+                     * 错误的回调
+                     */
+                    override fun onError(e: Throwable?) {
+                        assertMethod(baseView,{
+                            if(e is ContentException){
+                                assertMethod(baseView,{
+                                    baseView.hideLoading()
+                                    (baseView as AssetView).onError(e.errorContent)
+                                })
+                            }else{
+                                assertMethod(baseView,{
+                                    baseView.hideLoading()
+                                    (baseView as AssetView).onError("接口请求失败!")
+                                })
+                            }
+                        })
+                    }
+
+                    /**
+                     * 成功的结果返回
+                     */
+                    override fun onNext(t:PanTotalResponse) {
+                        super.onNext(t)
+                        assertMethod(baseView,{
+                            (baseView as AssetView).onGetPanTongji(t)
+                        })
+                    }
+                },lifecylerProvider)
+    }
+    /**
+     * 获取 所有的部门列表信息
+     */
+    fun getDepartmentList(allDepartmentRequest: AllDepartmentRequest){
+        assetServiceImpl.getDepartmentList(allDepartmentRequest)
+                .execute(object:BaseSucriber<ArrayList<DepartmentBean>>(baseView,AssetPresenter::class.java.simpleName){
+
+                    /**
+                     * 开始
+                     */
+                    override fun onStart() {
+
+                    }
+
+                    /**
+                     * 错误的回调
+                     */
+                    override fun onError(e: Throwable?) {
+                        assertMethod(baseView,{
+                            if(e is ContentException){
+                                assertMethod(baseView,{
+                                    baseView.hideLoading()
+                                    (baseView as AssetView).onError(e.errorContent)
+                                })
+                            }else{
+                                assertMethod(baseView,{
+                                    baseView.hideLoading()
+                                    (baseView as AssetView).onError("接口请求失败!")
+                                })
+                            }
+                        })
+                    }
+
+                    /**
+                     * 成功的结果返回
+                     */
+                    override fun onNext(t: ArrayList<DepartmentBean>) {
+                        super.onNext(t)
+                        assertMethod(baseView,{
+                            (baseView as AssetView).onGetDepartmentList(t)
+                        })
+                    }
+                },lifecylerProvider)
+    }
     /**
      * 获取资产 列表接口
      */

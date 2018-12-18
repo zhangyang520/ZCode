@@ -2,12 +2,12 @@ package com.jianhua.zcode.assets.data.api
 
 import com.jianhua.zcode.assets.baselibrary.data.bean.BaseResp
 import com.jianhua.zcode.assets.data.bean.AssetsBean
+import com.jianhua.zcode.assets.data.bean.DepartmentBean
 import com.jianhua.zcode.assets.data.bean.ZCoderRecorder
 import com.jianhua.zcode.assets.data.common.AppConstants
-import com.jianhua.zcode.assets.data.request.AssetsPorjectRequest
-import com.jianhua.zcode.assets.data.request.ZCodeRecorderListRequest
-import com.jianhua.zcode.assets.data.request.ZCoderActionRequest
+import com.jianhua.zcode.assets.data.request.*
 import com.jianhua.zcode.assets.data.response.AssetProjectResponse
+import com.jianhua.zcode.assets.data.response.PanTotalResponse
 import com.jianhua.zcode.assets.data.response.ZCodeActionResponse
 import com.jianhua.zcode.assets.data.response.ZCodeRecorderListResponse
 import retrofit2.http.Body
@@ -43,4 +43,18 @@ interface AssetsApi {
      */
     @POST(value = AppConstants.zcodeAction)
     fun zcodeAction(@Body zCoderActionRequest: ZCoderActionRequest):Observable<BaseResp<ZCodeActionResponse>>
+
+
+    /**
+     * 部门的列表信息
+     */
+    @POST(value = AppConstants.departmentList)
+    fun getDepartmentList(@Body allDepartmentRequest: AllDepartmentRequest):Observable<BaseResp<ArrayList<DepartmentBean>>>
+
+
+    /**
+     * 获取盘点的统计信息
+     */
+    @POST(value = AppConstants.totalInfo)
+    fun getPanTongji(@Body totalRequest: PanTotalRequest):Observable<BaseResp<PanTotalResponse>>
 }

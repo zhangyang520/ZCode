@@ -1,17 +1,27 @@
 package com.jianhua.zcode.assets.ui.fragment
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import com.jianhua.zcode.assets.R
 import com.jianhua.zcode.assets.baselibrary.data.bean.RefreshAction
+import com.jianhua.zcode.assets.baselibrary.exception.ContentException
 import com.jianhua.zcode.assets.baselibrary.ui.fragment.BaseMvpRecylerviewFragment
 import com.jianhua.zcode.assets.baselibrary.ui.recylerviewRefrsehLayout.adapter.RecyclerListAdapter
+import com.jianhua.zcode.assets.baselibrary.utils.DateUtil
+import com.jianhua.zcode.assets.data.bean.AssetListType
+import com.jianhua.zcode.assets.data.bean.AssetSearchCondition
 import com.jianhua.zcode.assets.data.bean.AssetsBean
+import com.jianhua.zcode.assets.data.common.AppConstants
+import com.jianhua.zcode.assets.data.dao.AssetBeanDao
+import com.jianhua.zcode.assets.data.dao.AssetSearchConditionDao
 import com.jianhua.zcode.assets.data.request.AssetsPorjectRequest
 import com.jianhua.zcode.assets.injection.component.DaggerAssetComponent
 import com.jianhua.zcode.assets.presenter.AssetPresenter
 import com.jianhua.zcode.assets.presenter.view.AssetView
+import com.suntray.chinapost.baselibrary.ut.base.utils.AppPrefsUtils
+import java.util.*
 import kotlin.collections.ArrayList
 
 /**
@@ -31,13 +41,10 @@ class ProjectAssetsFragment: BaseMvpRecylerviewFragment<AssetPresenter,AssetsBea
 
 
     /**
-     * 初始化相关的view
-     * 以及 从数据库获取数据 如果有 初始化界面
+     * 初始化 对应的view
      */
     override fun initView() {
-        //展示数据
-        getOriginAdapter().setItemList(getDatas())
-        getOriginAdapter().notifyDataSetChanged()
+
     }
 
     /**
@@ -45,26 +52,19 @@ class ProjectAssetsFragment: BaseMvpRecylerviewFragment<AssetPresenter,AssetsBea
      */
     override fun processBussiness() {
         super.processBussiness()
-        //进行刷新
-        mInteractionListener!!.requestNormal()
-    }
-
-    /**
-     * 模拟的数据
-     */
-    private fun getDatas(): ArrayList<AssetsBean> {
-        var i = 0
-        var assetList=ArrayList<AssetsBean>()
-        while (i < 20) {
-            var assetsBean=AssetsBean()
-            assetsBean.assetsName="设备1"
-            assetsBean.assetsNumber=i
-            assetsBean.assetsByDepartmentName="技术部"
-            assetsBean.assetsModeNumber=i.toString()
-            assetList.add(assetsBean)
-            i++
+        //处理对应的业务
+        //展示数据 首先 从数据库中获取 数据
+        try {
+            var dataList=AssetBeanDao.getAll()
+            //有对应的数据
+            getOriginAdapter().setItemList(dataList)
+            getOriginAdapter().notifyDataSetChanged()
+            //进行刷新
+            mInteractionListener!!.requestNormal()
+        } catch (e: ContentException) {
+            //进行刷新
+            mInteractionListener!!.requestNormal()
         }
-        return assetList
     }
 
     /**
@@ -87,24 +87,53 @@ class ProjectAssetsFragment: BaseMvpRecylerviewFragment<AssetPresenter,AssetsBea
      * itemHolder 每个条目的封装
      */
     private inner class ItemViewHolder(parent: ViewGroup) : RecyclerListAdapter.ViewHolder<AssetsBean>
-                                (LayoutInflater.from(activity).inflate(R.layout.item_project_assets, parent, false)) {
+                                (LayoutInflater.from(activity).inflate(R.layout.item_fragment_project_assets, parent, false)) {
         var btn_xuhao:TextView?=null
         var tv_name:TextView?=null
-        var tv_id_value:TextView?=null
-        var tv_position:TextView?=null
+        var tv_pan_date_value:TextView?=null
+        var tv_pan_state:TextView?=null
+        var tv_num:TextView?=null
+        var tv_xinghao:TextView?=null
+        var  tv_belong_project:TextView?=null
+        var tv_by_people:TextView?=null
+        var tv_department:TextView?=null
+        var tv_project_num:TextView?=null
 
         init {
             btn_xuhao=itemView!!.findViewById(R.id.btn_xuhao)
             tv_name=itemView!!.findViewById(R.id.tv_name)
-            tv_id_value=itemView!!.findViewById(R.id.tv_id_value)
-            tv_position=itemView!!.findViewById(R.id.tv_position)
+            tv_pan_date_value=itemView!!.findViewById(R.id.tv_pan_date_value)
+            tv_pan_state=itemView!!.findViewById(R.id.tv_pan_state_value)
+
+            tv_num=itemView!!.findViewById(R.id.tv_num)
+            tv_xinghao=itemView!!.findViewById(R.id.tv_xinghao)
+            tv_belong_project=itemView!!.findViewById(R.id.tv_belong_project)
+            tv_by_people=itemView!!.findViewById(R.id.tv_by_people)
+
+            tv_department=itemView!!.findViewById(R.id.tv_department)
+            tv_project_num=itemView!!.findViewById(R.id.tv_project_num)
         }
 
         override fun bind(item: AssetsBean, position: Int) {
-            btn_xuhao!!.setText(position.toString())
-            tv_id_value!!.setText(item.assetsNumber.toString())
-            tv_name!!.setText(item.assetsName)
-            tv_position!!.setText(item.assetsByDepartmentName)
+            btn_xuhao!!.setText((position+1).toString())
+            tv_pan_date_value!!.setText(item.pantime)
+            tv_name!!.setText(item.title)
+            if(item.ispandian.equals("物品已盘点")){
+                tv_pan_state!!.setText(item.ispandian)
+                tv_pan_state!!.setTextColor(Color.BLUE)
+            }else{
+                tv_pan_state!!.setText(item.ispandian)
+                tv_pan_state!!.setTextColor(Color.RED)
+            }
+
+
+            tv_num!!.setText(item.num)
+            tv_xinghao!!.setText(item.model)
+            tv_belong_project!!.setText(item.projectgroup)
+            tv_by_people!!.setText(item.useName)
+
+            tv_department!!.setText(item.shuname)
+            tv_project_num!!.setText(item.projectnum)
         }
     }
 
@@ -113,6 +142,7 @@ class ProjectAssetsFragment: BaseMvpRecylerviewFragment<AssetPresenter,AssetsBea
      */
     override fun onGetProjectAssetList(projectAssets: ArrayList<AssetsBean>, refreshAction: RefreshAction, listener: RequestListener) {
         //监听器的回调
+        println("onGetProjectAssetList projectAssets:"+projectAssets.toString())
         listener.onSuccess(projectAssets,refreshAction)
     }
 
@@ -179,6 +209,7 @@ class ProjectAssetsFragment: BaseMvpRecylerviewFragment<AssetPresenter,AssetsBea
            pageNumber=1
             simulateNetworkRequest(object : RequestListener {
                 override fun onSuccess(openProjectModels: List<AssetsBean>,refreshAction: RefreshAction) {
+                    getOriginAdapter().getItemList().clear()
                     getOriginAdapter().getItemList().addAll(openProjectModels)
                     getHeaderAdapter().notifyDataSetChanged()
                     super@ItemInteractionListener.requestNormal()
@@ -195,6 +226,7 @@ class ProjectAssetsFragment: BaseMvpRecylerviewFragment<AssetPresenter,AssetsBea
             pageNumber=1
             simulateNetworkRequest(object : RequestListener {
                 override fun onSuccess(openProjectModels: List<AssetsBean>,refreshAction: RefreshAction) {
+                    getOriginAdapter().getItemList().clear()
                     getOriginAdapter().getItemList().addAll(openProjectModels)
                     getHeaderAdapter().notifyDataSetChanged()
                     super@ItemInteractionListener.requestSearch()
@@ -213,10 +245,21 @@ class ProjectAssetsFragment: BaseMvpRecylerviewFragment<AssetPresenter,AssetsBea
      * 网络请求
      */
     private fun simulateNetworkRequest(listener: RequestListener,refreshAction: RefreshAction) {
-        /**
-         * todo 相关的请求参数 需要完善
-         */
-        basePresenter.getAssetList(AssetsPorjectRequest(-1,pageNumber,pageCount),refreshAction,listener)
+
+        try {
+            var assetSearchCondition=
+                    AssetSearchConditionDao.getByType(AssetListType.AssetListAll.listType.toInt())
+            //有对应的条件
+            basePresenter.getAssetList(AssetsPorjectRequest(-1,pageNumber,pageCount,
+                    AssetListType.AssetListAll.listType.toInt(),assetSearchCondition.pandate,
+                    assetSearchCondition.startTime,assetSearchCondition.endTime,
+                    assetSearchCondition.shunname,assetSearchCondition.keyword),refreshAction,listener)
+        } catch (e: ContentException) {
+           //没有对应的搜索条件
+            var panDate=AppPrefsUtils.getString(AppConstants.Inventory_Date_Name, DateUtil.dateFormatMonth(Calendar.getInstance().time))
+            basePresenter.getAssetList(AssetsPorjectRequest(-1,pageNumber,pageCount,
+                    AssetListType.AssetListAll.listType.toInt(),panDate,"","","",""),refreshAction,listener)
+        }
     }
 
 

@@ -1,6 +1,7 @@
 package com.jianhua.zcode.assets.data.bean
 
 import com.jianhua.zcode.assets.baselibrary.ui.recylerviewRefrsehLayout.model.CursorModel
+import com.lidroid.xutils.db.annotation.Id
 import java.io.Serializable
 
 /**
@@ -12,13 +13,9 @@ import java.io.Serializable
  *
  */
 class AssetsBean:Serializable, CursorModel {
-    var assetsName=""//资产名称
-    var assetsNumber=1//资产 序号
-    var assetsByDepartmentName=""//资产所属部门
-    var assetsByUserName=""//资产使用人
-    var assetsModeNumber=""//资产型号
-    var checkDate="" //盘点时间
 
+    @Id
+    var id:Int=0
     var title="" //物品名称
     var num="" //物品编号
     var model="" //物品型号
@@ -28,17 +25,9 @@ class AssetsBean:Serializable, CursorModel {
     var panname="" //盘点人
     var shuname="" //所属部门
     var ispandian="" //是否 盘点
-    
-    constructor()
-    constructor(assetsName: String, assetsNumber: Int, assetsByDepartmentName: String, assetsByUserName: String, assetsModeNumber: String, checkDate: String) {
-        this.assetsName = assetsName
-        this.assetsNumber = assetsNumber
-        this.assetsByDepartmentName = assetsByDepartmentName
-        this.assetsByUserName = assetsByUserName
-        this.assetsModeNumber = assetsModeNumber
-        this.checkDate = checkDate
-    }
+    var projectnum="" //项目编码
 
+    constructor()
 
     constructor(title: String, num: String, model: String, projectgroup: String, useName: String, pantime: String, panname: String, shuname: String, ispandian: String) {
         this.title = title
@@ -52,6 +41,20 @@ class AssetsBean:Serializable, CursorModel {
         this.ispandian = ispandian
     }
 
+    constructor(id: Int, title: String, num: String, model: String, projectgroup: String, useName: String, pantime: String, panname: String, shuname: String, ispandian: String, projectnum: String) {
+        this.id = id
+        this.title = title
+        this.num = num
+        this.model = model
+        this.projectgroup = projectgroup
+        this.useName = useName
+        this.pantime = pantime
+        this.panname = panname
+        this.shuname = shuname
+        this.ispandian = ispandian
+        this.projectnum = projectnum
+    }
+
 
     /**
      * 是否有更多
@@ -61,6 +64,6 @@ class AssetsBean:Serializable, CursorModel {
     }
 
     override fun toString(): String {
-        return "AssetsBean(assetsName='$assetsName', assetsNumber=$assetsNumber, assetsByDepartmentName='$assetsByDepartmentName', assetsByUserName='$assetsByUserName', assetsModeNumber='$assetsModeNumber', checkDate='$checkDate')"
+        return "AssetsBean(title='$title', num='$num', model='$model', projectgroup='$projectgroup', useName='$useName', pantime='$pantime', panname='$panname', shuname='$shuname', ispandian='$ispandian')"
     }
 }

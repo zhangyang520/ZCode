@@ -2,11 +2,11 @@ package com.jianhua.zcode.assets.service.impl
 
 import com.jianhua.zcode.assets.baselibrary.Rx.convertData
 import com.jianhua.zcode.assets.data.bean.AssetsBean
+import com.jianhua.zcode.assets.data.bean.DepartmentBean
 import com.jianhua.zcode.assets.data.bean.ZCoderRecorder
-import com.jianhua.zcode.assets.data.request.AssetsPorjectRequest
-import com.jianhua.zcode.assets.data.request.ZCodeRecorderListRequest
-import com.jianhua.zcode.assets.data.request.ZCoderActionRequest
+import com.jianhua.zcode.assets.data.request.*
 import com.jianhua.zcode.assets.data.response.AssetProjectResponse
+import com.jianhua.zcode.assets.data.response.PanTotalResponse
 import com.jianhua.zcode.assets.data.response.ZCodeActionResponse
 import com.jianhua.zcode.assets.data.response.ZCodeRecorderListResponse
 import com.jianhua.zcode.assets.data.respository.AssetsRespository
@@ -39,5 +39,13 @@ class AssetServiceImpl @Inject constructor() : AssetService {
 
     override fun zcodeAction(zCoderActionRequest: ZCoderActionRequest): Observable<ZCodeActionResponse> {
         return assetRespository.zcodeAction(zCoderActionRequest).convertData()
+    }
+
+    override fun getDepartmentList(allDepartmentRequest: AllDepartmentRequest): Observable<ArrayList<DepartmentBean>> {
+        return assetRespository.getDepartmentList(allDepartmentRequest).convertData()
+    }
+
+    override fun getPanTongji(totalRequest: PanTotalRequest): Observable<PanTotalResponse> {
+        return assetRespository.getPanTongji(totalRequest).convertData()
     }
 }

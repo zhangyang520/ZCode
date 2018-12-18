@@ -41,43 +41,62 @@ class LoginActivity : BaseMvpActivity<UserPresenter>(),UserView{
         isTitleShow = false
         isBlackShow = false
 
-        hud2= KProgressHUD(this@LoginActivity).setLabel("登录中...").setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
-        //登录的点击事件
-        btn_login.setOnClickListener({
-            //跳转 到 登录界面
-            if (ed_name.hasTxt() && ed_pwd.hasTxt()) {
-                basePresenter.userLogin(UserLoginRequest(-1,ed_name.getTxt(),ed_pwd.getTxt()))
-            } else {
-                ToastUtil.makeText(this@LoginActivity,"请输入工号 或者 密码")
-            }
-        })
-
-        try {
-            AssetUserDao.getall()
-        } catch (e: ContentException) {
-
-        }
-
-        try {
-            //用户本地查询
-            AssetUserDao.getLocalUser();
-            //直接跳转到首页
-            var intent = Intent(this@LoginActivity, MainActivity::class.java)
-            startActivity(intent)
-            finish()
-        } catch (e: ContentException) {
-            //没有对应的用户
-            var defaultUserNum=AppPrefsUtils.getString(AppConstants.USER_NUM,"")
-            if(!defaultUserNum.equals("")){
-                try {
-                   var user=AssetUserDao.getUserBy(defaultUserNum)
-                   //有对应的用户
-                    ed_name.setText(user.num)
-                    ed_pwd.setText(user.pass)
-                } catch (e: ContentException) {
-                    //省略吧
+        if(!isTaskRoot){
+            try {
+                //用户本地查询
+                AssetUserDao.getLocalUser();
+                //直接跳转到首页
+                var intent = Intent(this@LoginActivity, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            } catch (e: ContentException) {
+                //没有对应的用户
+                finish()
+                var defaultUserNum=AppPrefsUtils.getString(AppConstants.USER_NUM,"")
+                if(!defaultUserNum.equals("")){
+                    try {
+                        var user=AssetUserDao.getUserBy(defaultUserNum)
+                        //有对应的用户
+                        ed_name.setText(user.num)
+                        ed_pwd.setText(user.pass)
+                    } catch (e: ContentException) {
+                        //省略吧
+                    }
                 }
             }
+        }else{
+                hud2= KProgressHUD(this@LoginActivity).setLabel("登录中...").setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                //登录的点击事件
+                btn_login.setOnClickListener({
+                    //跳转 到 登录界面
+                    if (ed_name.hasTxt() && ed_pwd.hasTxt()) {
+                        basePresenter.userLogin(UserLoginRequest(-1,ed_name.getTxt(),ed_pwd.getTxt()))
+                    } else {
+                        ToastUtil.makeText(this@LoginActivity,"请输入工号 或者 密码")
+                    }
+                })
+
+                try {
+                    //用户本地查询
+                    AssetUserDao.getLocalUser();
+                    //直接跳转到首页
+                    var intent = Intent(this@LoginActivity, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                } catch (e: ContentException) {
+                    //没有对应的用户
+                    var defaultUserNum=AppPrefsUtils.getString(AppConstants.USER_NUM,"")
+                    if(!defaultUserNum.equals("")){
+                        try {
+                           var user=AssetUserDao.getUserBy(defaultUserNum)
+                           //有对应的用户
+                            ed_name.setText(user.num)
+                            ed_pwd.setText(user.pass)
+                        } catch (e: ContentException) {
+                            //省略吧
+                        }
+                    }
+                }
         }
     }
 

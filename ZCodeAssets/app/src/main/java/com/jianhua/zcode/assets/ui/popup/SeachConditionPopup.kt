@@ -28,6 +28,7 @@ import com.jianhua.zcode.assets.presenter.AssetPresenter
 import com.jianhua.zcode.assets.ui.activity.MainActivity
 import com.jianhua.zcode.assets.ui.adapter.DepartmentListAdapter
 import com.suntray.chinapost.baselibrary.ut.base.utils.AppPrefsUtils
+import com.zhy.autolayout.AutoLinearLayout
 import com.zhy.autolayout.AutoRelativeLayout
 import com.zhy.autolayout.config.AutoLayoutConifg
 import com.zhy.autolayout.utils.AutoUtils
@@ -56,6 +57,7 @@ object SeachConditionPopup {
 
     /**
      * 展现出搜索条件的框
+     * @parm currentPosition 当前的位置  0:项目资产 1:扫码记录
      */
     fun showSearchConditionPopup(rootView: View, context: MainActivity, maskView: View,currentPosition:Int){
         //如果已经展示 返回该逻辑
@@ -83,6 +85,15 @@ object SeachConditionPopup {
             //取消的逻辑
             searchConditionWindow!!.dismiss()
         })
+
+        var ll_time=contentView.findViewById<AutoLinearLayout>(R.id.ll_time)
+        if(currentPosition==0){
+            //代表的是 项目资产
+            ll_time.visibility=View.GONE
+        }else{
+            ll_time.visibility=View.VISIBLE
+
+        }
 
         var et_input_start_time = contentView.findViewById<EditText>(R.id.et_input_start_time)
         //盘点开始时间 点击事件
@@ -139,12 +150,14 @@ object SeachConditionPopup {
         try {
             var assetSearchCondition:AssetSearchCondition ?=null
             if(currentPosition==0){
+                //没有时间的设置
                 assetSearchCondition= AssetSearchConditionDao.getByType(AssetListType.AssetListAll.listType.toInt())
             }else{
                 assetSearchCondition= AssetSearchConditionDao.getByType(AssetListType.ZCodeRecoderList.listType.toInt())
+                et_input_start_time.setText(assetSearchCondition.startTime)
+                et_input_end_time.setText(assetSearchCondition.endTime)
             }
-            et_input_start_time.setText(assetSearchCondition.startTime)
-            et_input_end_time.setText(assetSearchCondition.endTime)
+
             et_input_search.setText(assetSearchCondition.keyword)
             et_department_input_search!!.setText(assetSearchCondition.shunname)
             currentShowDepartmentName=assetSearchCondition.shunname
@@ -160,12 +173,15 @@ object SeachConditionPopup {
             try {
                 var assetSearchCondition:AssetSearchCondition ?=null
                 if(currentPosition==0){
+                    //项目资产
                     assetSearchCondition= AssetSearchConditionDao.getByType(AssetListType.AssetListAll.listType.toInt())
+                    //没有时间的设置
                 }else{
                     assetSearchCondition= AssetSearchConditionDao.getByType(AssetListType.ZCodeRecoderList.listType.toInt())
+                    assetSearchCondition!!.startTime=et_input_start_time.getTxt()
+                    assetSearchCondition!!.endTime=et_input_end_time.getTxt()
                 }
-                assetSearchCondition!!.startTime=et_input_start_time.getTxt()
-                assetSearchCondition!!.endTime=et_input_end_time.getTxt()
+
                 assetSearchCondition!!.keyword=et_input_search.getTxt()
                 assetSearchCondition!!.shunname=et_department_input_search!!.getTxt()
                 //盘点 日期
@@ -179,10 +195,10 @@ object SeachConditionPopup {
                     assetSearchCondition.assetType=AssetListType.AssetListAll.listType.toInt()
                 }else{
                     assetSearchCondition.assetType=AssetListType.ZCodeRecoderList.listType.toInt()
+                    assetSearchCondition.startTime=et_input_start_time.getTxt()
+                    assetSearchCondition.endTime=et_input_end_time.getTxt()
                 }
 
-                assetSearchCondition.startTime=et_input_start_time.getTxt()
-                assetSearchCondition.endTime=et_input_end_time.getTxt()
                 assetSearchCondition.keyword=et_input_search.getTxt()
                 assetSearchCondition.shunname=et_department_input_search!!.getTxt()
                 //盘点 日期
@@ -193,7 +209,7 @@ object SeachConditionPopup {
             recyclerView!!.setBackgroundColor(Color.WHITE)
             searchConditionWindow!!.dismiss()
 
-            //进行处理 对应业务
+            //进行处理 对应业务 调用接口
             context.processBussiness()
             for(data in context.fragmentList){
                 (data as BaseMvpRecylerviewFragment<AssetPresenter, AssetsBean>).processBussiness()

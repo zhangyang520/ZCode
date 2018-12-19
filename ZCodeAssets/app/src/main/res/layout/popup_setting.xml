@@ -45,17 +45,28 @@
                 android:id="@+id/ed_daily"
                 android:background="@drawable/shape_btn_search"
                 android:hint="请设置盘点月份"
-                android:textSize="27px"
+                android:textSize="25px"
                 android:paddingLeft="40px"
                 android:textColor="@color/black"
-                android:layout_width="290px"
+                android:layout_width="230px"
                 android:layout_height="match_parent"/>
 
         <ImageView
-                android:src="@drawable/iv_last_month"
+                android:src="@drawable/iv_up"
                 android:id="@+id/iv_last_month"
                 android:layout_toRightOf="@+id/ed_daily"
                 android:layout_marginLeft="15px"
+                android:layout_width="65px"
+                android:layout_height="65px"
+                android:scaleType="fitCenter"
+        />
+
+        <ImageView
+                android:src="@drawable/iv_up"
+                android:id="@+id/iv_next_month"
+                android:layout_toRightOf="@+id/iv_last_month"
+                android:layout_marginLeft="25px"
+                android:visibility="gone"
                 android:layout_width="65px"
                 android:layout_height="65px"
                 android:scaleType="fitCenter"

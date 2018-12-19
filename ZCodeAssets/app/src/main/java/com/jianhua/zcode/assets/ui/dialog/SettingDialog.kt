@@ -94,36 +94,41 @@ class SettingDialog:Dialog{
                 calendar.set(Calendar.MONTH,currentMonthNum-1)
                 ed_daily.setText( DateUtil.dateFormatMonth(calendar.time))
             }else{
-                //下个月份: 只能下个月份
-
+//                //下个月份: 只能下个月份
+//                //此时可以上一个 月份
+//                calendar.set(Calendar.MONTH,cacheMonthNum-1)
+//                ed_daily.setText( DateUtil.dateFormatMonth(calendar.time))
             }
         })
         btn_ok!!.setOnClickListener({
             //进行保存 信息 根据对话框中的 内容 进行保存
-            if(currentPosition==0){
                 //当前 的位置 是项目资产 的列表
                 try {
                     var assetSearchCondition=AssetSearchConditionDao.getByType(AssetListType.AssetListAll.listType.toInt())
                     assetSearchCondition.assetType=AssetListType.AssetListAll.listType.toInt()
-                    assetSearchCondition.endTime
-                    assetSearchCondition.startTime
-                    assetSearchCondition.keyword
-                    assetSearchCondition.shunname
-                    assetSearchCondition.pandate
+                    assetSearchCondition.pandate=ed_daily.getTxt()
+                    AssetSearchConditionDao.saveData(assetSearchCondition)
                 } catch (e: ContentException) {
                     //没有对应的信息
                     var assetSearchCondition=AssetSearchCondition()
                     assetSearchCondition.assetType=AssetListType.AssetListAll.listType.toInt()
-                    assetSearchCondition.endTime
-                    assetSearchCondition.startTime
-                    assetSearchCondition.keyword
-                    assetSearchCondition.shunname
-                    assetSearchCondition.pandate
+                    assetSearchCondition.pandate=ed_daily.getTxt()
+                    AssetSearchConditionDao.saveData(assetSearchCondition)
                 }
-            }else{
-                //扫码记录的列表
-            }
 
+                //扫码记录的列表
+                try {
+                    var assetSearchCondition=AssetSearchConditionDao.getByType(AssetListType.ZCodeRecoderList.listType.toInt())
+                    assetSearchCondition.assetType=AssetListType.ZCodeRecoderList.listType.toInt()
+                    assetSearchCondition.pandate=ed_daily.getTxt()
+                    AssetSearchConditionDao.saveData(assetSearchCondition)
+                } catch (e: ContentException) {
+                    //没有对应的信息
+                    var assetSearchCondition=AssetSearchCondition()
+                    assetSearchCondition.assetType=AssetListType.ZCodeRecoderList.listType.toInt()
+                    assetSearchCondition.pandate=ed_daily.getTxt()
+                    AssetSearchConditionDao.saveData(assetSearchCondition)
+                }
             AppPrefsUtils.putString(AppConstants.Inventory_Date_Name,ed_daily.getTxt().toString())
             dismiss()
         })

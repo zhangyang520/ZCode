@@ -112,6 +112,7 @@
 
             <!--开始时间 和 结束时间-->
             <com.zhy.autolayout.AutoLinearLayout
+                    android:id="@+id/ll_time"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_marginTop="20px"
@@ -140,7 +141,7 @@
                         android:textSize="28px"
                         android:focusable="false"
                         android:gravity="center"
-                        android:hint="盘点开始时间"
+                        android:hint="盘点结束时间"
                 />
         </com.zhy.autolayout.AutoLinearLayout>
 
@@ -197,6 +198,6 @@
             android:layout_below="@+id/ll_content"
             android:layout_width="match_parent"
             android:background="@color/mask_color"
-            android:layout_height="714px">
+            android:layout_height="794px">
     </android.support.v7.widget.RecyclerView>
 </com.zhy.autolayout.AutoRelativeLayout>

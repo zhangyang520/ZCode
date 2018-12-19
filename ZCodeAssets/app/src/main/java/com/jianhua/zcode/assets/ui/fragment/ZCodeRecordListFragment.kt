@@ -250,14 +250,14 @@ class ZCodeRecordListFragment : BaseMvpRecylerviewFragment<AssetPresenter,ZCoder
                     AssetSearchConditionDao.getByType(AssetListType.ZCodeRecoderList.listType.toInt())
             //有对应的条件
             basePresenter.getZcodeRecoderList(ZCodeRecorderListRequest(-1,pageNumber,pageCount,
-                    AssetListType.AssetListAll.listType.toInt(),assetSearchCondition.pandate,
+                    AssetListType.ZCodeRecoderList.listType.toInt(),assetSearchCondition.pandate,
                     assetSearchCondition.startTime,assetSearchCondition.endTime,
                     assetSearchCondition.shunname,assetSearchCondition.keyword),refreshAction,listener)
         } catch (e: ContentException) {
             //没有对应的搜索条件
             var panDate= AppPrefsUtils.getString(AppConstants.Inventory_Date_Name, DateUtil.dateFormatMonth(Calendar.getInstance().time))
             basePresenter.getZcodeRecoderList(ZCodeRecorderListRequest(-1,pageNumber,pageCount,
-                    AssetListType.AssetListAll.listType.toInt(),panDate,"","","",""),refreshAction,listener)
+                    AssetListType.ZCodeRecoderList.listType.toInt(),panDate,"","","",""),refreshAction,listener)
         }
     }
 

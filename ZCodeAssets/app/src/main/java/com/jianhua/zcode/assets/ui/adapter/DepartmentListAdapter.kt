@@ -83,18 +83,22 @@ class DepartmentListAdapter : RecyclerView.Adapter<DepartmentListAdapter.Departm
                 holder.line!!.visibility=View.VISIBLE
                 holder!!.tv_choose!!.visibility=View.GONE
             }
-
-            //对整个条目的 点击事件
-            holder.itemView.setOnClickListener({
-                 if(SeachConditionPopup.et_department_input_search!=null){
-                     SeachConditionPopup.recyclerView!!.setBackgroundColor(context!!.resources.getColor(R.color.mask_color))
-                     SeachConditionPopup.currentShowDepartmentName=departmentList!!.get(position).name
-                     SeachConditionPopup.et_department_input_search!!.setText(departmentList!!.get(position).name)
-                     departmentList!!.clear()
-                     notifyDataSetChanged()
-                 }
-            })
         }
+
+        //对整个条目的 点击事件
+        holder.itemView.setOnClickListener({
+            if(SeachConditionPopup.et_department_input_search!=null){
+                SeachConditionPopup.recyclerView!!.setBackgroundColor(context!!.resources.getColor(R.color.mask_color))
+                SeachConditionPopup.currentShowDepartmentName=departmentList!!.get(position).name
+                if(departmentList!!.get(position).name.equals("请选择")){
+                    SeachConditionPopup.et_department_input_search!!.setText("")
+                }else{
+                    SeachConditionPopup.et_department_input_search!!.setText(departmentList!!.get(position).name)
+                }
+                departmentList!!.clear()
+                notifyDataSetChanged()
+            }
+        })
     }
 
     inner class DepartmentListViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {

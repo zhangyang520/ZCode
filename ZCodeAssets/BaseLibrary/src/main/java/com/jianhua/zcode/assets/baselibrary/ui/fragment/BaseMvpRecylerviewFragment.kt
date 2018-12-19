@@ -318,18 +318,21 @@ import javax.inject.Inject
 
         open fun requestComplete() {
             mIsLoading = false
-
             if (mRecyclerRefreshLayout != null) {
                 mRecyclerRefreshLayout!!.setRefreshing(false)
             }
-
             mTipsHelper!!.hideError()
             mTipsHelper!!.hideEmpty()
             mTipsHelper!!.hideLoading()
         }
 
         fun hasMore(): Boolean {
-            return mOriginAdapter!!.getItem(mOriginAdapter!!.getItemCount() - 1).hasMore()
+            if(mOriginAdapter!!.getItemList()!=null && mOriginAdapter!!.getItemList().size>=3){
+                return true
+            }else{
+                return false
+            }
+//            return mOriginAdapter!!.getItem(mOriginAdapter!!.getItemCount() - 1).hasMore()
         }
     }
 }

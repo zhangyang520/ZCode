@@ -118,31 +118,64 @@
                 android:layout_marginTop="20px"
                 android:layout_height="60px">
 
-                <EditText
-                        android:id="@+id/et_input_start_time"
-                        android:layout_width="0dp"
+                <com.zhy.autolayout.AutoRelativeLayout
                         android:layout_weight="1"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/shape_btn_search"
-                        android:textSize="28px"
-                        android:focusable="false"
-                        android:gravity="center"
-                        android:hint="盘点开始时间"
-                />
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent">
 
-                <EditText
-                        android:id="@+id/et_input_end_time"
-                        android:layout_toRightOf="@+id/et_input_start_time"
-                        android:layout_width="0dp"
+                    <EditText
+                            android:id="@+id/et_input_start_time"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/shape_btn_search"
+                            android:textSize="28px"
+                            android:focusable="false"
+                            android:gravity="center"
+                            android:hint="盘点开始时间"
+                    />
+                    
+                    <ImageView
+                            android:layout_alignParentRight="true"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/iv_cancel"
+                            android:id="@+id/iv_start_time_cancel"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="10px"
+                            android:layout_width="40px"
+                            android:layout_height="40px"/>
+                </com.zhy.autolayout.AutoRelativeLayout>
+
+                <com.zhy.autolayout.AutoRelativeLayout
                         android:layout_weight="1"
+                        android:layout_width="0dp"
                         android:layout_marginLeft="60px"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/shape_btn_search"
-                        android:textSize="28px"
-                        android:focusable="false"
-                        android:gravity="center"
-                        android:hint="盘点结束时间"
-                />
+                        android:layout_height="match_parent">
+                    
+                    <EditText
+                            android:id="@+id/et_input_end_time"
+                            android:layout_toRightOf="@+id/et_input_start_time"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/shape_btn_search"
+                            android:textSize="28px"
+                            android:focusable="false"
+                            android:gravity="center"
+                            android:hint="盘点结束时间"
+                    />
+
+                    <ImageView
+                            android:layout_alignParentRight="true"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/iv_cancel"
+                            android:id="@+id/iv_end_time_cancel"
+                            android:layout_centerVertical="true"
+                            android:layout_width="40px"
+                            android:layout_marginRight="10px"
+                            android:layout_height="40px"/>
+                </com.zhy.autolayout.AutoRelativeLayout>
+
+
+
         </com.zhy.autolayout.AutoLinearLayout>
 
             <!--输入框-->

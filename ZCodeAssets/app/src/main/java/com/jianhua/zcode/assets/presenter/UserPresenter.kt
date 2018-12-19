@@ -5,8 +5,10 @@ import com.jianhua.zcode.assets.baselibrary.Rx.assertMethod
 import com.jianhua.zcode.assets.baselibrary.Rx.execute
 import com.jianhua.zcode.assets.baselibrary.exception.ContentException
 import com.jianhua.zcode.assets.baselibrary.presenter.BasePresenter
+import com.jianhua.zcode.assets.baselibrary.utils.NetWorkUtils
 import com.jianhua.zcode.assets.data.bean.AssetUser
 import com.jianhua.zcode.assets.data.bean.AssetsBean
+import com.jianhua.zcode.assets.data.common.AppConstants
 import com.jianhua.zcode.assets.data.dao.AssetUserDao
 import com.jianhua.zcode.assets.data.request.UserLoginRequest
 import com.jianhua.zcode.assets.data.response.UserLoginResponse
@@ -58,7 +60,11 @@ class UserPresenter @Inject constructor():BasePresenter<UserView>(){
                             }else{
                                 assertMethod(baseView,{
                                     baseView.hideLoading()
-                                    (baseView as UserView).onError("接口请求失败!")
+                                    if(NetWorkUtils.isNetworkConnected(context)){
+                                        (baseView as UserView).onError(AppConstants.SERVER_ERROR)
+                                    }else{
+                                        (baseView as UserView).onError(AppConstants.NO_NET_WORK)
+                                    }
                                 })
                             }
                         })

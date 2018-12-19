@@ -31,4 +31,10 @@ object AppConstants {
 
     //用户的编号
     const val USER_NUM="USER_NUM"
+
+    //固定的提示语
+    const val NO_NET_WORK="请检查网络"
+
+    //检查是否断线
+    const val SERVER_ERROR="检查服务是否断线"
 }

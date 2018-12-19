@@ -3,6 +3,7 @@ package com.jianhua.zcode.assets.ui.popup
 import android.app.DatePickerDialog
 import android.content.Context
 import android.graphics.Color
+import android.media.Image
 import android.support.v7.widget.AppCompatImageView
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -11,6 +12,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.DatePicker
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.PopupWindow
 import com.jianhua.zcode.assets.R
 import com.jianhua.zcode.assets.baselibrary.Rx.getTxt
@@ -110,8 +112,21 @@ object SeachConditionPopup {
                     Calendar.getInstance().get(Calendar.DAY_OF_MONTH)).show()
         })
 
+        var iv_start_time_cancel=contentView.findViewById<ImageView>(R.id.iv_start_time_cancel)
+        //点击 开始时间的取消
+        iv_start_time_cancel.setOnClickListener({
+            et_input_start_time.setText("")
+        })
+
         //盘点结束时间
         var et_input_end_time = contentView.findViewById<EditText>(R.id.et_input_end_time)
+
+        var iv_end_time_cancel=contentView.findViewById<ImageView>(R.id.iv_end_time_cancel)
+        //点击 开始时间的取消
+        iv_end_time_cancel.setOnClickListener({
+            et_input_end_time.setText("")
+        })
+
         //盘点结束时间 点击事件
         et_input_end_time.setOnClickListener({
             var picker= DatePickerDialog(context,object: DatePickerDialog.OnDateSetListener {

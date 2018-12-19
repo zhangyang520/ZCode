@@ -6,9 +6,11 @@ import com.jianhua.zcode.assets.baselibrary.Rx.execute
 import com.jianhua.zcode.assets.baselibrary.data.bean.RefreshAction
 import com.jianhua.zcode.assets.baselibrary.exception.ContentException
 import com.jianhua.zcode.assets.baselibrary.presenter.BasePresenter
+import com.jianhua.zcode.assets.baselibrary.utils.NetWorkUtils
 import com.jianhua.zcode.assets.data.bean.AssetsBean
 import com.jianhua.zcode.assets.data.bean.DepartmentBean
 import com.jianhua.zcode.assets.data.bean.ZCoderRecorder
+import com.jianhua.zcode.assets.data.common.AppConstants
 import com.jianhua.zcode.assets.data.request.*
 import com.jianhua.zcode.assets.data.response.AssetProjectResponse
 import com.jianhua.zcode.assets.data.response.PanTotalResponse
@@ -62,7 +64,11 @@ class AssetPresenter @Inject constructor():BasePresenter<AssetView>(){
                             }else{
                                 assertMethod(baseView,{
                                     baseView.hideLoading()
-                                    (baseView as AssetView).onError("接口请求失败!")
+                                    if(NetWorkUtils.isNetworkConnected(context)){
+                                        (baseView as AssetView).onError(AppConstants.SERVER_ERROR)
+                                    }else{
+                                        (baseView as AssetView).onError(AppConstants.NO_NET_WORK)
+                                    }
                                 })
                             }
                         })
@@ -106,7 +112,11 @@ class AssetPresenter @Inject constructor():BasePresenter<AssetView>(){
                             }else{
                                 assertMethod(baseView,{
                                     baseView.hideLoading()
-                                    (baseView as AssetView).onError("接口请求失败!")
+                                    if(NetWorkUtils.isNetworkConnected(context)){
+                                        (baseView as AssetView).onError(AppConstants.SERVER_ERROR)
+                                    }else{
+                                        (baseView as AssetView).onError(AppConstants.NO_NET_WORK)
+                                    }
                                 })
                             }
                         })
@@ -150,7 +160,11 @@ class AssetPresenter @Inject constructor():BasePresenter<AssetView>(){
                            }else{
                                assertMethod(baseView,{
                                    baseView.hideLoading()
-                                   (baseView as AssetView).onErrorAction(action,"接口请求失败!",listener)
+                                   if(NetWorkUtils.isNetworkConnected(context)){
+                                       (baseView as AssetView).onErrorAction(action,AppConstants.SERVER_ERROR,listener)
+                                   }else{
+                                       (baseView as AssetView).onErrorAction(action,AppConstants.NO_NET_WORK,listener)
+                                   }
                                })
                            }
                        })
@@ -195,7 +209,11 @@ class AssetPresenter @Inject constructor():BasePresenter<AssetView>(){
                             }else{
                                 assertMethod(baseView,{
                                     baseView.hideLoading()
-                                    (baseView as AssetView).onErrorAction(action,"接口请求失败!",listener)
+                                    if(NetWorkUtils.isNetworkConnected(context)){
+                                        (baseView as AssetView).onErrorAction(action,AppConstants.SERVER_ERROR,listener)
+                                    }else{
+                                        (baseView as AssetView).onErrorAction(action,AppConstants.NO_NET_WORK,listener)
+                                    }
                                 })
                             }
                         })
@@ -241,7 +259,11 @@ class AssetPresenter @Inject constructor():BasePresenter<AssetView>(){
                             }else{
                                 assertMethod(baseView,{
                                     baseView.hideLoading()
-                                    (baseView as AssetView).onError("接口请求失败!")
+                                    if(NetWorkUtils.isNetworkConnected(context)){
+                                        (baseView as AssetView).onError(AppConstants.SERVER_ERROR)
+                                    }else{
+                                        (baseView as AssetView).onError(AppConstants.NO_NET_WORK)
+                                    }
                                 })
                             }
                         })

@@ -175,11 +175,6 @@ class ProjectAssetsFragment: BaseMvpRecylerviewFragment<AssetPresenter,AssetsBea
                     getOriginAdapter().getItemList().clear()
                     getOriginAdapter().getItemList().addAll(openProjectModels)
                     getHeaderAdapter().notifyDataSetChanged()
-//                    recylerVew!!.post(object:Runnable{
-//                        override fun run() {
-//                            getHeaderAdapter().notifyDataSetChanged()
-//                        }
-//                    })
                     super@ItemInteractionListener.requestRefresh()
                 }
 

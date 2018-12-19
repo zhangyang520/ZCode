@@ -17,7 +17,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginTop="6dp"
-    android:text="no data"
+    android:text="暂无数据"
     android:textColor="#ff888888"
     android:textSize="12sp"/>
 

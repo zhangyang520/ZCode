@@ -59,7 +59,8 @@ object SeachConditionPopup {
     fun showSearchConditionPopup(rootView: View, context: MainActivity, maskView: View,currentPosition:Int){
         //如果已经展示 返回该逻辑
         if(searchConditionWindow!=null && searchConditionWindow!!.isShowing){
-            return
+            searchConditionWindow!!.dismiss()
+            searchConditionWindow=null
         }
         searchConditionWindow= PopupWindow(context,null, R.style.Transparent_Dialog);
         searchConditionWindow!!.width= AutoLayoutConifg.getInstance().screenWidth;
@@ -89,7 +90,7 @@ object SeachConditionPopup {
                 override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
                     var calendar= Calendar.getInstance()
                     calendar.set(year,month,dayOfMonth)
-                    var content= DateUtil.dateFormatMonth(calendar.time)
+                    var content= DateUtil.dateFormat3(calendar.time)
                     et_input_start_time!!.setText(content)
                 }
             }, Calendar.getInstance().get(Calendar.YEAR),
@@ -105,7 +106,7 @@ object SeachConditionPopup {
                     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
                         var calendar= Calendar.getInstance()
                         calendar.set(year,month,dayOfMonth)
-                        var content= DateUtil.dateFormatMonth(calendar.time)
+                        var content= DateUtil.dateFormat3(calendar.time)
                         et_input_end_time!!.setText(content)
                     }
                 }, Calendar.getInstance().get(Calendar.YEAR),
@@ -124,7 +125,7 @@ object SeachConditionPopup {
             context.getDepartmentListAction()
         })
         //recylerview的实例
-        recyclerView=contentView.findViewById<RecyclerView>(R.id.recylerview_list)
+        recyclerView=contentView.findViewById(R.id.recylerview_list)
 
         //当前选择的部门信息
         currentShowDepartmentName = ""
@@ -137,8 +138,8 @@ object SeachConditionPopup {
             }else{
                 assetSearchCondition= AssetSearchConditionDao.getByType(AssetListType.ZCodeRecoderList.listType.toInt())
             }
-            et_input_start_time.setText(assetSearchCondition.endTime)
-            et_input_end_time.setText(assetSearchCondition.startTime)
+            et_input_start_time.setText(assetSearchCondition.startTime)
+            et_input_end_time.setText(assetSearchCondition.endTime)
             et_input_search.setText(assetSearchCondition.keyword)
             et_department_input_search!!.setText(assetSearchCondition.shunname)
             currentShowDepartmentName=assetSearchCondition.shunname
@@ -158,8 +159,8 @@ object SeachConditionPopup {
                 }else{
                     assetSearchCondition= AssetSearchConditionDao.getByType(AssetListType.ZCodeRecoderList.listType.toInt())
                 }
-                assetSearchCondition!!.endTime=et_input_start_time.getTxt()
-                assetSearchCondition!!.startTime=et_input_end_time.getTxt()
+                assetSearchCondition!!.startTime=et_input_start_time.getTxt()
+                assetSearchCondition!!.endTime=et_input_end_time.getTxt()
                 assetSearchCondition!!.keyword=et_input_search.getTxt()
                 assetSearchCondition!!.shunname=et_department_input_search!!.getTxt()
                 //盘点 日期
@@ -175,8 +176,8 @@ object SeachConditionPopup {
                     assetSearchCondition.assetType=AssetListType.ZCodeRecoderList.listType.toInt()
                 }
 
-                assetSearchCondition.endTime=et_input_start_time.getTxt()
-                assetSearchCondition.startTime=et_input_end_time.getTxt()
+                assetSearchCondition.startTime=et_input_start_time.getTxt()
+                assetSearchCondition.endTime=et_input_end_time.getTxt()
                 assetSearchCondition.keyword=et_input_search.getTxt()
                 assetSearchCondition.shunname=et_department_input_search!!.getTxt()
                 //盘点 日期

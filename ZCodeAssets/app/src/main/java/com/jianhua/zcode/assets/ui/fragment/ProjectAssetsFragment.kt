@@ -1,6 +1,7 @@
 package com.jianhua.zcode.assets.ui.fragment
 
 import android.graphics.Color
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
@@ -10,8 +11,8 @@ import com.jianhua.zcode.assets.baselibrary.exception.ContentException
 import com.jianhua.zcode.assets.baselibrary.ui.fragment.BaseMvpRecylerviewFragment
 import com.jianhua.zcode.assets.baselibrary.ui.recylerviewRefrsehLayout.adapter.RecyclerListAdapter
 import com.jianhua.zcode.assets.baselibrary.utils.DateUtil
+import com.jianhua.zcode.assets.baselibrary.utils.ToastUtil
 import com.jianhua.zcode.assets.data.bean.AssetListType
-import com.jianhua.zcode.assets.data.bean.AssetSearchCondition
 import com.jianhua.zcode.assets.data.bean.AssetsBean
 import com.jianhua.zcode.assets.data.common.AppConstants
 import com.jianhua.zcode.assets.data.dao.AssetBeanDao
@@ -39,12 +40,12 @@ class ProjectAssetsFragment: BaseMvpRecylerviewFragment<AssetPresenter,AssetsBea
         basePresenter.baseView=this
     }
 
-
+    var recylerVew:RecyclerView?=null
     /**
      * 初始化 对应的view
      */
     override fun initView() {
-
+        recylerVew=root!!.findViewById(R.id.recycler_view)
     }
 
     /**
@@ -174,6 +175,11 @@ class ProjectAssetsFragment: BaseMvpRecylerviewFragment<AssetPresenter,AssetsBea
                     getOriginAdapter().getItemList().clear()
                     getOriginAdapter().getItemList().addAll(openProjectModels)
                     getHeaderAdapter().notifyDataSetChanged()
+//                    recylerVew!!.post(object:Runnable{
+//                        override fun run() {
+//                            getHeaderAdapter().notifyDataSetChanged()
+//                        }
+//                    })
                     super@ItemInteractionListener.requestRefresh()
                 }
 
@@ -186,15 +192,20 @@ class ProjectAssetsFragment: BaseMvpRecylerviewFragment<AssetPresenter,AssetsBea
             },RefreshAction.PullDownRefresh)
         }
 
-        override  fun requestMore() {
+        override  fun requestMore(openProjectModels1: List<Any>?) {
             pagePreNumber=pageNumber
             pageNumber+=1
             //加载更多 的网络请求
             simulateNetworkRequest(object : RequestListener {
                 override fun onSuccess(openProjectModels: List<AssetsBean>,refreshAction: RefreshAction) {
-                    getOriginAdapter().getItemList().addAll(openProjectModels)
-                    getHeaderAdapter().notifyDataSetChanged()
-                    super@ItemInteractionListener.requestMore()
+                    if(openProjectModels.size==0){
+                        pageNumber-=1
+                        ToastUtil.makeText(activity,"暂无更多的数据")
+                    }else{
+                        getOriginAdapter().getItemList().addAll(openProjectModels)
+                        getHeaderAdapter().notifyDataSetChanged()
+                    }
+                    super@ItemInteractionListener.requestMore(openProjectModels)
                 }
 
                 override fun onFailed(refreshAction: RefreshAction,errorContent:String) {

@@ -243,8 +243,9 @@ import javax.inject.Inject
                 val last = (manager
                         .getChildAt(manager.childCount - 1).layoutParams as RecyclerView.LayoutParams).viewAdapterPosition
 
-                println("AutoLoadEventDetector onScrolled count:"+count+"..last:"+last+"...mIsLoading:"+mIsLoading+"..mInteractionListener is null:"+(mInteractionListener==null))
-                if (last == count - 1 && !mIsLoading && mInteractionListener != null) {
+                println("AutoLoadEventDetector onScrolled count:"+count+"..last:"+last+"...mIsLoading:"+mIsLoading+"..mInteractionListener is null:"+(mInteractionListener==null)+"...dy:"+dy)
+                if (last == count - 1 && !mIsLoading && mInteractionListener != null && dy>0) {
+                    //同时 需要向下 滑动！
                     requestMore()
                 }
             }
@@ -261,7 +262,7 @@ import javax.inject.Inject
     private fun requestMore() {
         if (mInteractionListener != null && mInteractionListener!!.hasMore() && !mIsLoading) {
             mIsLoading = true
-            mInteractionListener!!.requestMore()
+            mInteractionListener!!.requestMore(null)
         }
     }
 
@@ -280,8 +281,11 @@ import javax.inject.Inject
             }
         }
 
-        open  fun requestMore() {
+        open  fun requestMore(openProjectModels: List<Any>?) {
             requestComplete()
+            if(openProjectModels!!.size==0){
+                mTipsHelper!!.hideHasMore()
+            }
         }
 
         //请求搜索

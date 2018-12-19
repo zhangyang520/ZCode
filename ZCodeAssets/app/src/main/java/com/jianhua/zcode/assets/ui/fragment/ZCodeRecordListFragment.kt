@@ -2,22 +2,19 @@ package com.jianhua.zcode.assets.ui.fragment
 
 import android.graphics.Color
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.jianhua.zcode.assets.R
 import com.jianhua.zcode.assets.baselibrary.data.bean.RefreshAction
 import com.jianhua.zcode.assets.baselibrary.exception.ContentException
-import com.jianhua.zcode.assets.baselibrary.ui.fragment.BaseMvpFragment
 import com.jianhua.zcode.assets.baselibrary.ui.fragment.BaseMvpRecylerviewFragment
 import com.jianhua.zcode.assets.baselibrary.ui.recylerviewRefrsehLayout.adapter.RecyclerListAdapter
 import com.jianhua.zcode.assets.baselibrary.utils.DateUtil
+import com.jianhua.zcode.assets.baselibrary.utils.ToastUtil
 import com.jianhua.zcode.assets.data.bean.AssetListType
-import com.jianhua.zcode.assets.data.bean.AssetsBean
 import com.jianhua.zcode.assets.data.bean.ZCoderRecorder
 import com.jianhua.zcode.assets.data.common.AppConstants
 import com.jianhua.zcode.assets.data.dao.AssetSearchConditionDao
-import com.jianhua.zcode.assets.data.request.AssetsPorjectRequest
 import com.jianhua.zcode.assets.data.request.ZCodeRecorderListRequest
 import com.jianhua.zcode.assets.injection.component.DaggerAssetComponent
 import com.jianhua.zcode.assets.presenter.AssetPresenter
@@ -180,15 +177,20 @@ class ZCodeRecordListFragment : BaseMvpRecylerviewFragment<AssetPresenter,ZCoder
             }, RefreshAction.PullDownRefresh)
         }
 
-        override  fun requestMore() {
+        override  fun requestMore(openProjectModels1: List<Any>?) {
             pagePreNumber=pageNumber
             pageNumber+=1
             //加载更多 的网络请求
             simulateNetworkRequest(object : RequestListener {
                 override fun onSuccess(openProjectModels: List<ZCoderRecorder>, refreshAction: RefreshAction) {
-                    getOriginAdapter().getItemList().addAll(openProjectModels)
-                    getHeaderAdapter().notifyDataSetChanged()
-                    super@ItemInteractionListener.requestMore()
+                    if(openProjectModels.size==0){
+                        pageNumber-=1
+                        ToastUtil.makeText(activity,"暂无更多的数据")
+                    }else{
+                        getOriginAdapter().getItemList().addAll(openProjectModels)
+                        getHeaderAdapter().notifyDataSetChanged()
+                    }
+                    super@ItemInteractionListener.requestMore(openProjectModels)
                 }
 
                 override fun onFailed(refreshAction: RefreshAction, errorContent:String) {

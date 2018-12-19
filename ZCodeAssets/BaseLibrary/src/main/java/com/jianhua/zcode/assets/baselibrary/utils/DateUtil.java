@@ -42,6 +42,10 @@ public class DateUtil {
 	public static String dateFormat(Date date){
 		return new SimpleDateFormat("yyyy/MM/dd",Locale.getDefault()).format(date);
 	}
+
+	public static String dateFormat3(Date date){
+		return new SimpleDateFormat("yyyy-MM-dd",Locale.getDefault()).format(date);
+	}
 	
 	public static String dateFormat2(Date date){
 		return new SimpleDateFormat("yyyy年-MM月-dd日  HH:mm:ss",Locale.getDefault()).format(date);

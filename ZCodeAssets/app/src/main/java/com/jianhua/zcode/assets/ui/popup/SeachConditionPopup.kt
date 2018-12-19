@@ -7,6 +7,7 @@ import android.support.v7.widget.AppCompatImageView
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.Gravity
+import android.view.MotionEvent
 import android.view.View
 import android.widget.DatePicker
 import android.widget.EditText
@@ -119,10 +120,14 @@ object SeachConditionPopup {
 
         var rl_department=contentView.findViewById<AutoRelativeLayout>(R.id.rl_department)
         //部门 展示 点击事件
-        et_department_input_search!!.setOnClickListener({
-            isDepartmentListAction=true
-            //获取 部门的列表的数据
-            context.getDepartmentListAction()
+        et_department_input_search!!.setOnTouchListener(object :View.OnTouchListener{
+
+            override fun onTouch(p0: View?, p1: MotionEvent?): Boolean {
+                isDepartmentListAction=true
+                //获取 部门的列表的数据
+                context.getDepartmentListAction()
+                return true
+            }
         })
         //recylerview的实例
         recyclerView=contentView.findViewById(R.id.recylerview_list)

@@ -165,4 +165,80 @@
                 android:layout_marginTop="2px"
         />
     </com.zhy.autolayout.AutoRelativeLayout>
+
+
+    <!-- 项目组 -->
+    <com.zhy.autolayout.AutoRelativeLayout
+            android:id="@+id/rl_project_group"
+            android:layout_below="@+id/rl_client_state"
+            android:layout_marginTop="20px"
+            android:paddingLeft="20px"
+            android:paddingTop="30px"
+            android:paddingRight="20px"
+            android:paddingBottom="30px"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="项目组"
+                android:textColor="@color/black"
+                android:layout_centerVertical="true"
+                android:textSize="30px"
+        />
+
+        <!-- 使用人  对应的值-->
+        <TextView
+                android:layout_alignParentRight="true"
+                android:id="@+id/tv_project_group_value"
+                android:layout_width="wrap_content"
+                android:layout_height="36px"
+                android:textSize="30px"
+                android:textColor="#666666"
+                android:textColorHint="#D5D5D5"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="2px"></TextView>
+    </com.zhy.autolayout.AutoRelativeLayout>
+
+
+    <!-- 项目编号 -->
+    <com.zhy.autolayout.AutoRelativeLayout
+            android:id="@+id/rl_project_num"
+            android:layout_below="@+id/rl_project_group"
+            android:layout_marginTop="20px"
+            android:paddingLeft="20px"
+            android:paddingTop="30px"
+            android:paddingRight="20px"
+            android:paddingBottom="30px"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="项目编号"
+                android:textColor="@color/black"
+                android:layout_centerVertical="true"
+                android:textSize="30px"
+        />
+
+        <!-- 使用人  对应的值-->
+        <TextView
+                android:layout_alignParentRight="true"
+                android:id="@+id/tv_project_num_value"
+                android:layout_width="wrap_content"
+                android:layout_height="36px"
+                android:textSize="30px"
+                android:textColor="#666666"
+                android:textColorHint="#D5D5D5"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="2px"
+        />
+    </com.zhy.autolayout.AutoRelativeLayout>
+
 </com.zhy.autolayout.AutoRelativeLayout>

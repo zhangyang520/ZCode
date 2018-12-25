@@ -50,6 +50,8 @@ class ZCodeDeviceDetailActivity : BaseAcvitiy() {
         tv_device_pan_by_people.setText(zcodeActionResponse!!.panname)
         tv_device_pan_time.setText(zcodeActionResponse!!.pantime)
         tv_device_pan_state.setText(zcodeActionResponse!!.ispandian)
+        tv_project_group_value.setText(zcodeActionResponse!!.projectgroup)
+        tv_project_num_value.setText(zcodeActionResponse!!.projectnum)
     }
 
     override fun getView(): View {

@@ -16,7 +16,7 @@ class ZCodeActionResponse:Serializable {
     var num="" //物品编号
     var model="" //物品型号
     var username="" //使用人
-    var useName="" //使用人
+    var usename="" //使用人
     var pantime="" //盘点时间
     var panname="" //盘点人
     var shuname="" //所属部门
@@ -32,7 +32,7 @@ class ZCodeActionResponse:Serializable {
         this.num = num
         this.model = model
         this.username = username
-        this.useName = useName
+        this.usename = useName
         this.pantime = pantime
         this.panname = panname
         this.shuname = shuname
@@ -43,6 +43,6 @@ class ZCodeActionResponse:Serializable {
     }
 
     override fun toString(): String {
-        return "ZCodeActionResponse(title='$title', num='$num', model='$model', username='$username', useName='$useName', pantime='$pantime', panname='$panname', shuname='$shuname', ispandian='$ispandian', panstatus='$panstatus', projectnum='$projectnum', projectgroup='$projectgroup')"
+        return "ZCodeActionResponse(title='$title', num='$num', model='$model', username='$username', useName='$usename', pantime='$pantime', panname='$panname', shuname='$shuname', ispandian='$ispandian', panstatus='$panstatus', projectnum='$projectnum', projectgroup='$projectgroup')"
     }
 }

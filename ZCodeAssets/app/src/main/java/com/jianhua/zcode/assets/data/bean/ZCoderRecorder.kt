@@ -17,7 +17,7 @@ class ZCoderRecorder: CursorModel,Serializable {
     var num="" //物品编号
     var model="" //物品型号
     var projectgroup=""//项目组
-    var useName="" //使用人
+    var usename="" //使用人
     var pantime="" //盘点时间
     var panname="" //盘点人
     var shuname="" //所属部门
@@ -34,7 +34,7 @@ class ZCoderRecorder: CursorModel,Serializable {
         this.num = num
         this.model = model
         this.projectgroup = projectgroup
-        this.useName = useName
+        this.usename = useName
         this.pantime = pantime
         this.panname = panname
         this.shuname = shuname
@@ -46,7 +46,7 @@ class ZCoderRecorder: CursorModel,Serializable {
         this.num = num
         this.model = model
         this.projectgroup = projectgroup
-        this.useName = useName
+        this.usename = useName
         this.pantime = pantime
         this.panname = panname
         this.shuname = shuname
@@ -61,6 +61,6 @@ class ZCoderRecorder: CursorModel,Serializable {
     }
 
     override fun toString(): String {
-        return "ZCoderRecorder(title='$title', num='$num', model='$model', projectgroup='$projectgroup', useName='$useName', pantime='$pantime', panname='$panname', shuname='$shuname', ispandian='$ispandian', panstatus='$panstatus')"
+        return "ZCoderRecorder(title='$title', num='$num', model='$model', projectgroup='$projectgroup', useName='$usename', pantime='$pantime', panname='$panname', shuname='$shuname', ispandian='$ispandian', panstatus='$panstatus')"
     }
 }

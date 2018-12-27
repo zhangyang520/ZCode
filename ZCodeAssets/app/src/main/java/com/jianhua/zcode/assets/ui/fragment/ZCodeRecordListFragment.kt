@@ -90,6 +90,7 @@ class ZCodeRecordListFragment : BaseMvpRecylerviewFragment<AssetPresenter,ZCoder
         var tv_by_people:TextView?=null
         var tv_department:TextView?=null
         var tv_project_num:TextView?=null
+        var pan_name:TextView?=null
 
         init {
             btn_xuhao=itemView!!.findViewById(R.id.btn_xuhao)
@@ -104,6 +105,7 @@ class ZCodeRecordListFragment : BaseMvpRecylerviewFragment<AssetPresenter,ZCoder
 
             tv_department=itemView!!.findViewById(R.id.tv_department)
             tv_project_num=itemView!!.findViewById(R.id.tv_project_num)
+            pan_name=itemView!!.findViewById(R.id.pan_name)
         }
 
         override fun bind(item: ZCoderRecorder, position: Int) {
@@ -122,10 +124,11 @@ class ZCodeRecordListFragment : BaseMvpRecylerviewFragment<AssetPresenter,ZCoder
             tv_num!!.setText(item.num)
             tv_xinghao!!.setText(item.model)
             tv_belong_project!!.setText(item.projectgroup)
-            tv_by_people!!.setText(item.useName)
+            tv_by_people!!.setText(item.usename)
 
             tv_department!!.setText(item.shuname)
             tv_project_num!!.setText(item.projectnum)
+            pan_name!!.setText(item.panname)
         }
     }
 

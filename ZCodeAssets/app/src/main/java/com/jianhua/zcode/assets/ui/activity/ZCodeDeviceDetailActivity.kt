@@ -45,7 +45,7 @@ class ZCodeDeviceDetailActivity : BaseAcvitiy() {
         tv_device_name.setText(zcodeActionResponse!!.title)
         tv_device_number.setText(zcodeActionResponse!!.num)
         tv_device_type.setText(zcodeActionResponse!!.model)
-        tv_device_by_people.setText(zcodeActionResponse!!.useName)
+        tv_device_by_people.setText(zcodeActionResponse!!.usename)
         tv_device_department.setText(zcodeActionResponse!!.shuname)
         tv_device_pan_by_people.setText(zcodeActionResponse!!.panname)
         tv_device_pan_time.setText(zcodeActionResponse!!.pantime)

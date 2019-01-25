@@ -67,7 +67,7 @@ public class DateUtil {
 	 */
 	public static Date parse2DateMonth(String s){
 		try {
-			return new SimpleDateFormat("yyyy/MM",Locale.getDefault()).parse(s);
+			return new SimpleDateFormat("yyyy-MM",Locale.getDefault()).parse(s);
 		} catch (ParseException e) {
 			e.printStackTrace();
 			LogUtils.e("日期格式不正确，无法转换");

@@ -2,10 +2,12 @@ package com.jianhua.zcode.assets.ui.activity
 
 import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
 import android.view.Gravity
 import android.view.View
+import android.widget.Toast
 import com.jianhua.zcode.assets.R
 import com.jianhua.zcode.assets.baselibrary.Rx.getTxt
 import com.jianhua.zcode.assets.baselibrary.exception.ContentException
@@ -33,6 +35,8 @@ import com.zhy.autolayout.utils.AutoUtils
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 import kotlin.collections.ArrayList
+
+
 
 /**
  *    主界面
@@ -146,6 +150,9 @@ class MainActivity : BaseMvpActivity<AssetPresenter>(),AssetView {
                        //通过的情况
                        var intent = Intent(this@MainActivity, ZCodeScanActivity::class.java)
                        startActivity(intent)
+
+                       //
+//                       toWeChatScan();
                    }
                },object:Runnable{
                    override fun run() {
@@ -156,6 +163,18 @@ class MainActivity : BaseMvpActivity<AssetPresenter>(),AssetView {
         })
     }
 
+    private fun toWeChatScan() {
+        try {
+            //利用Intent打开微信
+            val uri = Uri.parse("weixin://dl/scan")
+            val intent = Intent(Intent.ACTION_VIEW, uri)
+            startActivity(intent)
+        } catch (e: Exception) {
+            //若无法正常跳转，在此进行错误处理
+            Toast.makeText(this@MainActivity, "无法跳转到微信，请检查是否安装了微信", Toast.LENGTH_SHORT).show()
+        }
+
+    }
     /**
      * 处理对应的逻辑
      */
